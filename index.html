@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location T2 meublé 33 m² - Angers (Rue de Rivoli / UCO / ESA)</title>
+    <title>Location T2 meublé 33 m² - Angers (UCO/ESA)</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -124,6 +124,36 @@
             border: 0;
         }
 
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #1a252f;
+        }
+
         footer {
             text-align: center;
             padding: 20px;
@@ -142,7 +172,7 @@
 
     <header>
         <h1>Location T2 meublé - 33 m²</h1>
-        <p>Angers (49000) - Rue de Rivoli - Quartier Madeleine / Saint-Léonard / Justices</p>
+        <p>Angers (49000) - Quartier Madeleine / Saint-Léonard / Justices</p>
     </header>
 
     <div class="container">
@@ -160,7 +190,6 @@
             <div class="features-grid">
                 <div class="feature-item"><strong>Surface :</strong> 33 m²</div>
                 <div class="feature-item"><strong>Pièces :</strong> 2 pièces (1 chambre)</div>
-                <div class="feature-item"><strong>Adresse :</strong> Rue de Rivoli, Angers</div>
                 <div class="feature-item"><strong>Étage :</strong> 2ᵉ étage avec ascenseur</div>
                 <div class="feature-item"><strong>Exposition :</strong> Nord-Est</div>
                 <div class="feature-item"><strong>Chauffage :</strong> Électrique individuel</div>
@@ -169,10 +198,10 @@
             </div>
         </div>
 
-        <div class="card">
+<div class="card">
             <h2>Description</h2>
-            <p>Je propose à la location ce T2 meublé de 33 m², situé rue de Rivoli au 2ᵉ étage d'un immeuble sécurisé de 3 étages avec ascenseur à Angers (Quartier Madeleine / Saint-Léonard / Justices). Cet appartement offre un espace fonctionnel et confortable, idéal pour un étudiant ou un jeune actif.</p>
-            
+            <p>Je propose à la location ce T2 meublé de 33 m², situé au 2ᵉ étage d'un immeuble sécurisé de 3 étages avec ascenseur à Angers (Quartier Madeleine / Saint-Léonard / Justices). Cet appartement offre un espace fonctionnel et confortable, idéal pour un étudiant ou un jeune actif.</p>
+
             <p><strong>Agencement et surfaces :</strong></p>
             <ul>
                 <li><strong>Séjour avec cuisine ouverte :</strong> 20,48 m² (très lumineux grâce aux baies vitrées, orientation Nord-Est).</li>
@@ -182,7 +211,7 @@
             </ul>
 
             <p><em>À noter : Logement non-fumeur. Sans balcon ni place de stationnement réservée.</em></p>
-            
+
             <h3>Équipements et mobilier inclus</h3>
             <ul class="equipment-list">
                 <li>Lit deux places</li>
@@ -200,11 +229,11 @@
                 <li>Logement raccordé à la **Fibre Optique**</li>
             </ul>
         </div>
-        
-        <!-- Conditions & Emplacement -->
+
+<!-- Conditions & Emplacement -->
         <div class="card">
             <h2>Conditions financières & Localisation</h2>
-            
+
             <div class="features-grid">
                 <div>
                     <h3>Conditions de location</h3>
@@ -220,7 +249,6 @@
                 <div>
                     <h3>Proximité & Transports</h3>
                     <ul>
-                        <li><strong>Adresse :</strong> Rue de Rivoli, Angers</li>
                         <li><strong>UCO :</strong> À 5 min à pied (Arrêt *Rabelais* à proximité).</li>
                         <li><strong>ESA :</strong> À 10 min à pied.</li>
                         <li><strong>Gare SNCF et hypercentre :</strong> À 20 min à pied.</li>
@@ -231,126 +259,17 @@
             </div>
         </div>
 
-        <!-- Galerie Photos Structurée par Catégories -->
+        <!-- Galerie Photos -->
         <div class="card">
             <h2>Photos du logement</h2>
-            <p><em>Cliquez sur une photo pour l'agrandir. (Remarque : Photos du séjour non disponibles actuellement en raison d'une remise en état en cours).</em></p>
-
-            <!-- Style CSS dédié à la galerie et à l'agrandissement -->
-            <style>
-                .category-title {
-                    color: var(--primary-color);
-                    border-bottom: 1px solid #ddd;
-                    padding-bottom: 5px;
-                    margin-top: 25px;
-                    font-size: 1.2rem;
-                }
-                .gallery-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 15px;
-                    margin-top: 10px;
-                }
-                .gallery-grid img {
-                    width: 100%;
-                    height: 160px;
-                    object-fit: cover;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    transition: transform 0.2s, box-shadow 0.2s;
-                }
-                .gallery-grid img:hover {
-                    transform: scale(1.03);
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                }
-                /* Style de la boîte modale pour agrandir la photo */
-                .lightbox {
-                    display: none;
-                    position: fixed;
-                    z-index: 1000;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.85);
-                    justify-content: center;
-                    align-items: center;
-                }
-                .lightbox img {
-                    max-width: 90%;
-                    max-height: 85%;
-                    border-radius: 8px;
-                    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
-                }
-                .lightbox-close {
-                    position: absolute;
-                    top: 20px;
-                    right: 30px;
-                    color: white;
-                    font-size: 40px;
-                    font-weight: bold;
-                    cursor: pointer;
-                }
-            </style>
-
-            <!-- Catégorie 1: Parties communes -->
-            <h3 class="category-title">Parties Communes & Résidence</h3>
             <div class="gallery-grid">
-                <img src="images/communs-1.jpg" alt="Entrée immeuble / Ascenseur" onclick="openLightbox(this.src)">
-                <img src="images/communs-2.jpg" alt="Façade / Résidence" onclick="openLightbox(this.src)">
-            </div>
-
-            <!-- Catégorie 2: Entrée & Salon -->
-            <h3 class="category-title">Entrée & Salon</h3>
-            <div class="gallery-grid">
-                <img src="images/salon-1.jpg" alt="Séjour et baies vitrées" onclick="openLightbox(this.src)">
-                <img src="images/salon-2.jpg" alt="Entrée avec placard" onclick="openLightbox(this.src)">
-            </div>
-
-            <!-- Catégorie 3: Cuisine -->
-            <h3 class="category-title">Cuisine</h3>
-            <div class="gallery-grid">
-                <img src="images/cuisine-1.jpg" alt="Cuisine équipée" onclick="openLightbox(this.src)">
-                <img src="images/cuisine-2.jpg" alt="Espace repas / Équipements" onclick="openLightbox(this.src)">
-            </div>
-
-            <!-- Catégorie 4: Chambre -->
-            <h3 class="category-title">Chambre</h3>
-            <div class="gallery-grid">
-                <img src="images/chambre-1.jpg" alt="Chambre - Lit 2 places" onclick="openLightbox(this.src)">
-                <img src="images/chambre-2.jpg" alt="Chambre - Bureau & Commode" onclick="openLightbox(this.src)">
-            </div>
-
-            <!-- Catégorie 5: Salle de bain -->
-            <h3 class="category-title">Salle de bain</h3>
-            <div class="gallery-grid">
-                <img src="images/sdb-1.jpg" alt="Salle de bain avec baignoire" onclick="openLightbox(this.src)">
-                <img src="images/sdb-2.jpg" alt="Meuble vasque & Machine à laver" onclick="openLightbox(this.src)">
-            </div>
-
-            <!-- Plan de l'appartement -->
-            <h3 class="category-title">Plan du logement</h3>
-            <div class="gallery-grid">
-                <img src="plan.jpg" alt="Plan de l'appartement T2 33m²" style="height: auto; max-height: 250px;" onclick="openLightbox(this.src)">
+                <img src="sejour.jpg" alt="Séjour">
+                <img src="chambre.jpg" alt="Chambre">
+                <img src="cuisine.jpg" alt="Cuisine">
+                <img src="salle-de-bain.jpg" alt="Salle de bain">
+                <img src="plan.jpg" alt="Plan de l'appartement T2 33m2" style="width:100%; max-width:600px; display:block; margin:20px auto; border-radius:8px;">
             </div>
         </div>
-
-        <!-- Fenêtre modale (Lightbox) cachée par défaut -->
-        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-            <span class="lightbox-close">&times;</span>
-            <img id="lightbox-img" src="" alt="Photo agrandie">
-        </div>
-
-        <!-- Script JS ultra-léger pour gérer l'agrandissement au clic -->
-        <script>
-            function openLightbox(src) {
-                document.getElementById('lightbox-img').src = src;
-                document.getElementById('lightbox').style.display = 'flex';
-            }
-            function closeLightbox() {
-                document.getElementById('lightbox').style.display = 'none';
-            }
-        </script>
 
         <!-- Vidéo du logement -->
         <div class="card">
@@ -364,7 +283,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 - Location directe propriétaire | Rue de Rivoli, Angers</p>
+        <p>&copy; 2026 - Location directe propriétaire | Angers</p>
     </footer>
 
 </body>
