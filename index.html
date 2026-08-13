@@ -554,32 +554,45 @@
             </div>
         </div>
 
-        <!-- Section Formulaire de Contact -->
-        <div class="card">
-            <h2>Contact & Candidature</h2>
-            <p>Intéressé(e) par ce logement ? Remplissez le formulaire ci-dessous pour m'envoyer votre candidature ou poser vos questions :</p>
-            
-            <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
-                <input type="hidden" name="access_key" value="6a2724be-3dd6-421c-b63e-825481144133">
-                
-                <div class="form-group">
-                    <label for="name">Nom et Prénom :</label>
-                    <input type="text" id="name" name="name" placeholder="Ex: Jean Dupont" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Adresse e-mail :</label>
-                    <input type="email" id="email" name="email" placeholder="Ex: jean.dupont@email.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Message / Présentation du dossier :</label>
-                    <textarea id="message" name="message" rows="5" placeholder="Présentez brièvement votre situation (étudiant, salarié, garants, date de prise de possession souhaitée...)" required></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">Envoyer la candidature</button>
-            </form>
+<!-- Section Formulaire de Contact -->
+<div class="card">
+    <h2>Contact & Candidature</h2>
+    <p>Intéressé(e) par ce logement ? Remplissez le formulaire ci-dessous pour poser vos questions ou transmettre votre candidature :</p>
+    
+    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+        <input type="hidden" name="access_key" value="6a2724be-3dd6-421c-b63e-825481144133">
+        <input type="hidden" name="subject" value="Nouvelle candidature - T2 Rue de Rivoli">
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+        
+        <div class="form-group">
+            <label for="name">Nom et Prénom :</label>
+            <input type="text" id="name" name="name" placeholder="Ex: Jean Dupont" required>
         </div>
+
+        <div class="form-group">
+            <label for="email">Adresse e-mail :</label>
+            <input type="email" id="email" name="email" placeholder="Ex: jean.dupont@email.com" required>
+        </div>
+
+        <!-- Champ Optionnel pour le lien du dossier -->
+        <div class="form-group">
+            <label for="dossier_link">Lien vers votre dossier sécurisé (Optionnel) :</label>
+            <input type="url" id="dossier_link" name="dossier_link" placeholder="https://www.dossierfacile.fr/... ou Google Drive / Dropbox">
+            <small style="color: #666; font-size: 0.85rem; margin-top: 4px;">
+                💡 <strong>Transmission des pièces justificatives :</strong><br>
+                • <strong>Par lien :</strong> Partagez directement votre lien <a href="https://www.dossierfacile.logement.gouv.fr/" target="_blank" style="color: var(--accent-color);">DossierFacile.fr</a> (service public gratuit & sécurisé) ou un dossier Google Drive / Dropbox.<br>
+                • <strong>Par e-mail :</strong> Si vous n'avez pas de lien, vous pourrez nous envoyer vos pièces jointes directement en réponse à notre mail de confirmation.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="message">Message / Présentation :</label>
+            <textarea id="message" name="message" rows="5" placeholder="Présentez brièvement votre situation (étudiant, salarié, garanties, date d'emménagement souhaitée...)" required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Envoyer ma candidature</button>
+    </form>
+</div>
         
         <!-- Boîte Modale / Lightbox Grand Écran -->
         <div id="lightbox" class="lightbox">
