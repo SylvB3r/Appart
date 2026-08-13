@@ -228,6 +228,63 @@
             background: #1a252f;
         }
 
+/* --- STYLES DU FORMULAIRE DE CONTACT --- */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+
+        .submit-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .submit-btn:hover {
+            background-color: #219150;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.99);
+        }
+        
         /* --- LIGHTBOX --- */
         .lightbox {
             display: none;
@@ -505,6 +562,33 @@
             <div class="gallery-grid">
                 <img class="gallery-img" src="plan.jpg" alt="Plan de l'appartement T2 33m²" style="height: auto; max-height: 250px;">
             </div>
+        </div>
+
+        <!-- Section Formulaire de Contact -->
+        <div class="card">
+            <h2>Contact & Candidature</h2>
+            <p>Intéressé(e) par ce logement ? Remplissez le formulaire ci-dessous pour m'envoyer votre candidature ou poser vos questions :</p>
+            
+            <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+                <input type="hidden" name="access_key" value="6a2724be-3dd6-421c-b63e-825481144133">
+                
+                <div class="form-group">
+                    <label for="name">Nom et Prénom :</label>
+                    <input type="text" id="name" name="name" placeholder="Ex: Jean Dupont" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Adresse e-mail :</label>
+                    <input type="email" id="email" name="email" placeholder="Ex: jean.dupont@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message / Présentation du dossier :</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Présentez brièvement votre situation (étudiant, salarié, garants, date de prise de possession souhaitée...)" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Envoyer la candidature</button>
+            </form>
         </div>
         
         <!-- Boîte Modale / Lightbox Grand Écran -->
