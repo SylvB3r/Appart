@@ -92,20 +92,6 @@
             -moz-columns: 2;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .gallery-grid img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 6px;
-        }
-
         .video-container {
             position: relative;
             padding-bottom: 56.25%; /* Ratio 16:9 */
@@ -124,6 +110,106 @@
             border: 0;
         }
 
+        /* --- STYLES DE LA GALERIE & LIGHTBOX --- */
+        .category-title {
+            color: var(--primary-color);
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 25px;
+            font-size: 1.2rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 90%;
+            max-height: 80%;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .lightbox-prev, .lightbox-next {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            font-size: 30px;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            user-select: none;
+            transition: background 0.3s;
+        }
+
+        .lightbox-prev:hover, .lightbox-next:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .lightbox-prev { left: -50px; }
+        .lightbox-next { right: -50px; }
+
+        .lightbox-counter {
+            color: white;
+            margin-top: 15px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
         footer {
             text-align: center;
             padding: 20px;
@@ -135,6 +221,8 @@
             .equipment-list {
                 columns: 1;
             }
+            .lightbox-prev { left: 10px; }
+            .lightbox-next { right: 10px; }
         }
     </style>
 </head>
@@ -231,7 +319,7 @@
             </div>
         </div>
 
-<!-- NOUVELLE SECTION : Dossier de candidature & Documents -->
+        <!-- Dossier de candidature & Documents -->
         <div class="card">
             <h2>Dossier de candidature & Documents à fournir</h2>
             <p>Afin de constituer votre dossier de location, merci de préparer les pièces justificatives suivantes :</p>
@@ -267,108 +355,51 @@
             <h2>Photos du logement</h2>
             <p><em>Cliquez sur une photo pour l'agrandir.</em></p>
 
-            <!-- Style CSS dédié à la galerie et à l'agrandissement -->
-            <style>
-                .category-title {
-                    color: var(--primary-color);
-                    border-bottom: 1px solid #ddd;
-                    padding-bottom: 5px;
-                    margin-top: 25px;
-                    font-size: 1.2rem;
-                }
-                .gallery-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 15px;
-                    margin-top: 10px;
-                }
-                .gallery-grid img {
-                    width: 100%;
-                    height: 160px;
-                    object-fit: cover;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    transition: transform 0.2s, box-shadow 0.2s;
-                }
-                .gallery-grid img:hover {
-                    transform: scale(1.03);
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                }
-                /* Style de la boîte modale pour agrandir la photo */
-                .lightbox {
-                    display: none;
-                    position: fixed;
-                    z-index: 1000;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.85);
-                    justify-content: center;
-                    align-items: center;
-                }
-                .lightbox img {
-                    max-width: 90%;
-                    max-height: 85%;
-                    border-radius: 8px;
-                    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
-                }
-                .lightbox-close {
-                    position: absolute;
-                    top: 20px;
-                    right: 30px;
-                    color: white;
-                    font-size: 40px;
-                    font-weight: bold;
-                    cursor: pointer;
-                }
-            </style>
-
             <!-- Catégorie 1: Parties communes -->
             <h3 class="category-title">Parties Communes & Résidence</h3>
             <div class="gallery-grid">
-                <img src="images/communs-2.jpg" alt="Façade / Résidence" onclick="openLightbox(this.src)">
-                <img src="images/communs-1.jpg" alt="Entrée immeuble / Ascenseur" onclick="openLightbox(this.src)">
-                <img src="images/communs-3.jpg" alt="Couloir" onclick="openLightbox(this.src)">
+                <img class="gallery-img" src="images/communs-2.jpg" alt="Façade / Résidence">
+                <img class="gallery-img" src="images/communs-1.jpg" alt="Entrée immeuble / Ascenseur">
+                <img class="gallery-img" src="images/communs-3.jpg" alt="Couloir">
             </div>
 
             <!-- Catégorie 2: Entrée & Salon -->
             <h3 class="category-title">Entrée & Salon</h3>
             <div class="gallery-grid">
-                <img src="images/salon-1.jpg" alt="Séjour et baie vitrée" onclick="openLightbox(this.src)">
-                <img src="images/salon-2.jpg" alt="Séjour" onclick="openLightbox(this.src)">
-                <img src="images/salon-3.jpg" alt="Entrée avec placard" onclick="openLightbox(this.src)">
+                <img class="gallery-img" src="images/salon-1.jpg" alt="Séjour et baie vitrée">
+                <img class="gallery-img" src="images/salon-2.jpg" alt="Séjour">
+                <img class="gallery-img" src="images/salon-3.jpg" alt="Entrée avec placard">
             </div>
 
             <!-- Catégorie 3: Cuisine -->
             <h3 class="category-title">Cuisine</h3>
             <div class="gallery-grid">
-                <img src="images/cuisine-1.jpg" alt="Cuisine équipée" onclick="openLightbox(this.src)">
-                <img src="images/cuisine-2.jpg" alt="Espace repas / Équipements" onclick="openLightbox(this.src)">
+                <img class="gallery-img" src="images/cuisine-1.jpg" alt="Cuisine équipée">
+                <img class="gallery-img" src="images/cuisine-2.jpg" alt="Espace repas / Équipements">
             </div>
 
             <!-- Catégorie 4: Chambre -->
             <h3 class="category-title">Chambre</h3>
             <div class="gallery-grid">
-                <img src="images/chambre-1.jpg" alt="Chambre - Lit 2 places" onclick="openLightbox(this.src)">
-                <img src="images/chambre-2.jpg" alt="Chambre - Bureau & Commode" onclick="openLightbox(this.src)">
+                <img class="gallery-img" src="images/chambre-1.jpg" alt="Chambre - Lit 2 places">
+                <img class="gallery-img" src="images/chambre-2.jpg" alt="Chambre - Bureau & Commode">
             </div>
 
             <!-- Catégorie 5: Salle de bain -->
             <h3 class="category-title">Salle de bain</h3>
             <div class="gallery-grid">
-                <img src="images/sdb-1.jpg" alt="Salle de bain avec baignoire" onclick="openLightbox(this.src)">
-                <img src="images/sdb-2.jpg" alt="Meuble vasque & Toilette" onclick="openLightbox(this.src)">
+                <img class="gallery-img" src="images/sdb-1.jpg" alt="Salle de bain avec baignoire">
+                <img class="gallery-img" src="images/sdb-2.jpg" alt="Meuble vasque & Toilette">
             </div>
 
             <!-- Plan de l'appartement -->
             <h3 class="category-title">Plan du logement</h3>
             <div class="gallery-grid">
-                <img src="plan.jpg" alt="Plan de l'appartement T2 33m²" style="height: auto; max-height: 250px;" onclick="openLightbox(this.src)">
+                <img class="gallery-img" src="plan.jpg" alt="Plan de l'appartement T2 33m²" style="height: auto; max-height: 250px;">
             </div>
         </div>
         
-<!-- Boîte Modale / Carrousel Grand Écran -->
+        <!-- Boîte Modale / Lightbox Grand Écran -->
         <div id="lightbox" class="lightbox">
             <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
             <div class="lightbox-content-wrapper">
@@ -379,75 +410,10 @@
             <div id="lightbox-counter" class="lightbox-counter"></div>
         </div>
 
-        <!-- Script Carrousel JS -->
-        <script>
-            let currentImageIndex = 0;
-            let imagesList = [];
-
-            document.addEventListener('DOMContentLoaded', function() {
-                // Récupère toutes les images de la galerie
-                imagesList = Array.from(document.querySelectorAll('.gallery-img'));
-                
-                imagesList.forEach((img, index) => {
-                    img.addEventListener('click', () => {
-                        openLightbox(index);
-                    });
-                });
-            });
-
-            function openLightbox(index) {
-                currentImageIndex = index;
-                updateLightboxImage();
-                document.getElementById('lightbox').style.display = 'flex';
-            }
-
-            function closeLightbox() {
-                document.getElementById('lightbox').style.display = 'none';
-            }
-
-            function changeImage(direction) {
-                currentImageIndex += direction;
-                if (currentImageIndex < 0) {
-                    currentImageIndex = imagesList.length - 1;
-                } else if (currentImageIndex >= imagesList.length) {
-                    currentImageIndex = 0;
-                }
-                updateLightboxImage();
-            }
-
-            function updateLightboxImage() {
-                const img = imagesList[currentImageIndex];
-                document.getElementById('lightbox-img').src = img.src;
-                document.getElementById('lightbox-counter').innerText = `${currentImageIndex + 1} / ${imagesList.length} - ${img.alt}`;
-            }
-
-            // Fermeture au clic à l'extérieur de l'image
-            document.getElementById('lightbox').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeLightbox();
-                }
-            });
-
-            // Navigation au clavier (Flèches gauche/droite et Échap)
-            document.addEventListener('keydown', function(e) {
-                const lightbox = document.getElementById('lightbox');
-                if (lightbox.style.display === 'flex') {
-                    if (e.key === 'ArrowLeft') {
-                        changeImage(-1);
-                    } else if (e.key === 'ArrowRight') {
-                        changeImage(1);
-                    } else if (e.key === 'Escape') {
-                        closeLightbox();
-                    }
-                }
-            });
-        </script>
-
         <!-- Vidéo du logement -->
         <div class="card">
             <h2>Visite vidéo</h2>
             <div class="video-container">
-                <!-- Remplacez le lien src par le lien d'intégration de votre vidéo YouTube -->
                 <iframe src="https://www.youtube.com/embed/votre_id_video" allowfullscreen></iframe>
             </div>
         </div>
@@ -458,5 +424,68 @@
         <p>&copy; 2026 - Location directe propriétaire | Rue de Rivoli, Angers</p>
     </footer>
 
+    <!-- Script Carrousel JS -->
+    <script>
+        let currentImageIndex = 0;
+        let imagesList = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Récupère toutes les images qui ont la classe "gallery-img"
+            imagesList = Array.from(document.querySelectorAll('.gallery-img'));
+            
+            imagesList.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    openLightbox(index);
+                });
+            });
+        });
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightboxImage();
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) {
+                currentImageIndex = imagesList.length - 1;
+            } else if (currentImageIndex >= imagesList.length) {
+                currentImageIndex = 0;
+            }
+            updateLightboxImage();
+        }
+
+        function updateLightboxImage() {
+            const img = imagesList[currentImageIndex];
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox-counter').innerText = `${currentImageIndex + 1} / ${imagesList.length} - ${img.alt}`;
+        }
+
+        // Fermeture au clic à l'extérieur de l'image
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // Navigation au clavier (Flèches gauche/droite et Échap)
+        document.addEventListener('keydown', function(e) {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowLeft') {
+                    changeImage(-1);
+                } else if (e.key === 'ArrowRight') {
+                    changeImage(1);
+                } else if (e.key === 'Escape') {
+                    closeLightbox();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
