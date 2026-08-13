@@ -373,16 +373,68 @@
             <span class="lightbox-close">&times;</span>
             <img id="lightbox-img" src="" alt="Photo agrandie">
         </div>
-
-        <!-- Script JS ultra-léger pour gérer l'agrandissement au clic -->
+<!-- Script Carrousel JS -->
         <script>
-            function openLightbox(src) {
-                document.getElementById('lightbox-img').src = src;
+            let currentImageIndex = 0;
+            let imagesList = [];
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // Récupère toutes les images de la galerie
+                imagesList = Array.from(document.querySelectorAll('.gallery-img'));
+                
+                imagesList.forEach((img, index) => {
+                    img.addEventListener('click', () => {
+                        openLightbox(index);
+                    });
+                });
+            });
+
+            function openLightbox(index) {
+                currentImageIndex = index;
+                updateLightboxImage();
                 document.getElementById('lightbox').style.display = 'flex';
             }
+
             function closeLightbox() {
                 document.getElementById('lightbox').style.display = 'none';
             }
+
+            function changeImage(direction) {
+                currentImageIndex += direction;
+                if (currentImageIndex < 0) {
+                    currentImageIndex = imagesList.length - 1;
+                } else if (currentImageIndex >= imagesList.length) {
+                    currentImageIndex = 0;
+                }
+                updateLightboxImage();
+            }
+
+            function updateLightboxImage() {
+                const img = imagesList[currentImageIndex];
+                document.getElementById('lightbox-img').src = img.src;
+                document.getElementById('lightbox-counter').innerText = `${currentImageIndex + 1} / ${imagesList.length} - ${img.alt}`;
+            }
+
+            // Fermeture au clic à l'extérieur de l'image
+            document.getElementById('lightbox').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeLightbox();
+                }
+            });
+
+            // Navigation au clavier (Flèches gauche/droite et Échap)
+            document.addEventListener('keydown', function(e) {
+                const lightbox = document.getElementById('lightbox');
+                if (lightbox.style.display === 'flex') {
+                    if (e.key === 'ArrowLeft') {
+                        changeImage(-1);
+                    } else if (e.key === 'ArrowRight') {
+                        changeImage(1);
+                    } else if (e.key === 'Escape') {
+                        closeLightbox();
+                    }
+                }
+            });
         </script>
 
         <!-- Vidéo du logement -->
