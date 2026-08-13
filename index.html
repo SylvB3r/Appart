@@ -92,7 +92,6 @@
             -moz-columns: 2;
         }
 
-        /* --- STYLES DE LA GALERIE & LIGHTBOX --- */
         .category-title {
             color: var(--primary-color);
             border-bottom: 1px solid #ddd;
@@ -122,7 +121,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        /* --- STYLES DU SLIDESHOW --- */
         .slideshow-container {
             position: relative;
             max-width: 100%;
@@ -228,7 +226,6 @@
             background: #1a252f;
         }
 
-/* --- STYLES DU FORMULAIRE DE CONTACT --- */
         .contact-form {
             display: flex;
             flex-direction: column;
@@ -284,8 +281,7 @@
         .submit-btn:active {
             transform: scale(0.99);
         }
-        
-        /* --- LIGHTBOX --- */
+
         .lightbox {
             display: none;
             position: fixed;
@@ -418,7 +414,7 @@
                 <li><strong>Entrée :</strong> Équipée d'un grand placard intégré pour vos rangements.</li>
             </ul>
 
-            <p><em>À noter : Logement non-fumeur. Sans balcony ni place de stationnement réservée.</em></p>
+            <p><em>À noter : Logement non-fumeur. Sans balcon ni place de stationnement réservée.</em></p>
             
             <h3>Équipements et mobilier inclus</h3>
             <ul class="equipment-list">
@@ -434,7 +430,7 @@
                 <li>Plaque vitrocéramique</li>
                 <li>Four micro-ondes</li>
                 <li>Placard intégré (entrée)</li>
-                <li>Logement raccordé à la **Fibre Optique**</li>
+                <li>Logement raccordé à la <strong>Fibre Optique</strong></li>
             </ul>
         </div>
         
@@ -457,12 +453,12 @@
                 <div>
                     <h3>Proximité & Transports</h3>
                     <ul>
-                        <li><strong>Adresse :</strong> Rue de Rivoli, Angers </li>
+                        <li><strong>Adresse :</strong> Rue de Rivoli, Angers</li>
                         <li><strong>UCO :</strong> À 3 min à pied.</li>
                         <li><strong>ESA :</strong> À 5 min à pied.</li>
                         <li><strong>Gare SNCF et hypercentre :</strong> À 20 min à pied.</li>
                         <li><strong>Commerces :</strong> Supermarché, boulangerie, pharmacie à 10 min à pied (Place de la Madeleine).</li>
-                        <li><strong>Transports Irigo :</strong> Bus : Arrêt *Rabelais* à proximité (Lignes 1, 3, 7, 40, 41, 42).</li>
+                        <li><strong>Transports Irigo :</strong> Bus : Arrêt <em>Rabelais</em> à proximité (Lignes 1, 3, 7, 40, 41, 42).</li>
                     </ul>
                 </div>
             </div>
@@ -504,9 +500,9 @@
             <h2>Visite virtuelle - Diaporama des photos</h2>
             <div class="slideshow-container">
                 <div class="slide-frame">
-                    <button class="slideshow-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+                    <button class="slideshow-btn prev" aria-label="Photo précédente" onclick="moveSlide(-1)">&#10094;</button>
                     <img id="slideshow-img" src="" alt="Visite virtuelle">
-                    <button class="slideshow-btn next" onclick="moveSlide(1)">&#10095;</button>
+                    <button class="slideshow-btn next" aria-label="Photo suivante" onclick="moveSlide(1)">&#10095;</button>
                     <div id="slideshow-caption" class="slide-caption"></div>
                 </div>
             </div>
@@ -521,7 +517,6 @@
             <h2>Toutes les photos du logement</h2>
             <p><em>Cliquez sur une photo pour l'agrandir.</em></p>
 
-            <!-- Catégorie 1: Parties communes -->
             <h3 class="category-title">Parties Communes & Résidence</h3>
             <div class="gallery-grid">
                 <img class="gallery-img" src="images/communs-2.jpg" alt="Façade / Résidence">
@@ -529,7 +524,6 @@
                 <img class="gallery-img" src="images/communs-3.jpg" alt="Couloir">
             </div>
 
-            <!-- Catégorie 2: Entrée & Salon -->
             <h3 class="category-title">Entrée & Salon</h3>
             <div class="gallery-grid">
                 <img class="gallery-img" src="images/salon-3.jpg" alt="Entrée avec placard">
@@ -537,27 +531,23 @@
                 <img class="gallery-img" src="images/salon-1.jpg" alt="Séjour et baie vitrée">
             </div>
 
-            <!-- Catégorie 3: Cuisine -->
             <h3 class="category-title">Cuisine</h3>
             <div class="gallery-grid">
                 <img class="gallery-img" src="images/cuisine-1.jpg" alt="Cuisine équipée">
             </div>
 
-            <!-- Catégorie 4: Chambre -->
             <h3 class="category-title">Chambre</h3>
             <div class="gallery-grid">
                 <img class="gallery-img" src="images/chambre-1.jpg" alt="Chambre - Lit 2 places">
                 <img class="gallery-img" src="images/chambre-2.jpg" alt="Chambre - Bureau & Commode">
             </div>
 
-            <!-- Catégorie 5: Salle de bain -->
             <h3 class="category-title">Salle de bain</h3>
             <div class="gallery-grid">
                 <img class="gallery-img" src="images/sdb-2.jpg" alt="Salle de bain avec baignoire">
                 <img class="gallery-img" src="images/sdb-1.jpg" alt="Meuble vasque & Toilette">
             </div>
 
-            <!-- Plan de l'appartement -->
             <h3 class="category-title">Plan du logement</h3>
             <div class="gallery-grid">
                 <img class="gallery-img" src="plan.jpg" alt="Plan de l'appartement T2 33m²" style="height: auto; max-height: 250px;">
@@ -595,9 +585,9 @@
         <div id="lightbox" class="lightbox">
             <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
             <div class="lightbox-content-wrapper">
-                <button class="lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</button>
+                <button class="lightbox-prev" aria-label="Image précédente" onclick="changeLightboxImage(-1)">&#10094;</button>
                 <img id="lightbox-img" src="" alt="Photo agrandie">
-                <button class="lightbox-next" onclick="changeLightboxImage(1)">&#10095;</button>
+                <button class="lightbox-next" aria-label="Image suivante" onclick="changeLightboxImage(1)">&#10095;</button>
             </div>
             <div id="lightbox-counter" class="lightbox-counter"></div>
         </div>
@@ -608,32 +598,26 @@
         <p>&copy; 2026 - Location directe propriétaire | Rue de Rivoli, Angers</p>
     </footer>
 
-    <!-- Script JS pour la Galerie et le Slide Show -->
     <script>
         let currentImageIndex = 0;
         let imagesList = [];
         
-        // Variables pour le slideshow
         let slideIndex = 0;
         let slideInterval = null;
         let isPlaying = true;
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Récupère toutes les images dans l'ordre du document
             imagesList = Array.from(document.querySelectorAll('.gallery-img'));
             
-            // Clic sur une image de la galerie pour ouvrir la Lightbox
             imagesList.forEach((img, index) => {
                 img.addEventListener('click', () => {
                     openLightbox(index);
                 });
             });
 
-            // Initialiser le Diaporama (Slide Show)
             initSlideshow();
         });
 
-        /* --- FONCTIONS DIAPORAMA --- */
         function initSlideshow() {
             if (imagesList.length === 0) return;
 
@@ -657,10 +641,11 @@
             if (slideIndex < 0) slideIndex = imagesList.length - 1;
 
             const currentImg = imagesList[slideIndex];
-            document.getElementById('slideshow-img').src = currentImg.src;
+            const slideImg = document.getElementById('slideshow-img');
+            slideImg.src = currentImg.src;
+            slideImg.alt = currentImg.alt;
             document.getElementById('slideshow-caption').innerText = `${slideIndex + 1} / ${imagesList.length} - ${currentImg.alt}`;
 
-            // Mise à jour des points (dots)
             const dots = document.querySelectorAll('.dot');
             dots.forEach((dot, idx) => {
                 dot.classList.toggle('active', idx === slideIndex);
@@ -681,7 +666,7 @@
             if (slideInterval) clearInterval(slideInterval);
             slideInterval = setInterval(() => {
                 showSlide(slideIndex + 1);
-            }, 3500); // Défilement toutes les 3,5 secondes
+            }, 3500);
             isPlaying = true;
             document.getElementById('play-pause-btn').innerText = 'Pause ❚❚';
         }
@@ -706,7 +691,6 @@
             }
         }
 
-        /* --- FONCTIONS LIGHTBOX --- */
         function openLightbox(index) {
             currentImageIndex = index;
             updateLightboxImage();
@@ -729,18 +713,18 @@
 
         function updateLightboxImage() {
             const img = imagesList[currentImageIndex];
-            document.getElementById('lightbox-img').src = img.src;
+            const lbImg = document.getElementById('lightbox-img');
+            lbImg.src = img.src;
+            lbImg.alt = img.alt;
             document.getElementById('lightbox-counter').innerText = `${currentImageIndex + 1} / ${imagesList.length} - ${img.alt}`;
         }
 
-        // Fermeture au clic à l'extérieur de l'image
         document.getElementById('lightbox').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeLightbox();
             }
         });
 
-        // Navigation au clavier
         document.addEventListener('keydown', function(e) {
             const lightbox = document.getElementById('lightbox');
             if (lightbox.style.display === 'flex') {
