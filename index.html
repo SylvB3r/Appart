@@ -367,7 +367,19 @@
                 <img src="plan.jpg" alt="Plan de l'appartement T2 33m²" style="height: auto; max-height: 250px;" onclick="openLightbox(this.src)">
             </div>
         </div>
+        
+<!-- Boîte Modale / Carrousel Grand Écran -->
+        <div id="lightbox" class="lightbox">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <div class="lightbox-content-wrapper">
+                <button class="lightbox-prev" onclick="changeImage(-1)">&#10094;</button>
+                <img id="lightbox-img" src="" alt="Photo agrandie">
+                <button class="lightbox-next" onclick="changeImage(1)">&#10095;</button>
+            </div>
+            <div id="lightbox-counter" class="lightbox-counter"></div>
+        </div>
 
+        
         <!-- Fenêtre modale (Lightbox) cachée par défaut -->
         <div id="lightbox" class="lightbox" onclick="closeLightbox()">
             <span class="lightbox-close">&times;</span>
