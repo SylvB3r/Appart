@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>État des Lieux Contradictoire</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f8f9fa; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; }
+        .card { background: white; border-radius: 8px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .login-box { max-width: 400px; margin: 100px auto; text-align: center; }
+        input[type="password"] { padding: 10px; width: 80%; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; text-decoration: none; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; }
+        th { background: #2c3e50; color: white; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen" class="card login-box">
+        <h2>Accès État des Lieux</h2>
+        <p>Entrez le mot de passe d'accès :</p>
+        <input type="password" id="password" placeholder="Mot de passe">
+        <br>
+        <button onclick="checkPassword()" class="btn">Accéder</button>
+        <p id="error-msg" style="color: red; display: none; margin-top: 10px;">Mot de passe incorrect.</p>
+    </div>
+
+    <div id="protected-content" class="container hidden">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h1>État des Lieux & Inventaire</h1>
+            <a href="index.html" class="btn" style="background: #2c3e50;">← Retour à l'annonce</a>
+        </div>
+
+        <div class="card">
+            <h3>Compteurs & Clés</h3>
+            <table>
+                <tr><th>Élément</th><th>Relevé / Index</th></tr>
+                <tr><td>Électricité</td><td><input type="text" placeholder="Index kWh"></td></tr>
+                <tr><td>Eau froide</td><td><input type="text" placeholder="Index m³"></td></tr>
+                <tr><td>Clés remises</td><td>2 jeux de clés + 1 Vigik + 1 clé BAL</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>Grille d'État - Entrée du logement</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Élément</th>
+                        <th>TB</th><th>B</th><th>U</th><th>M</th>
+                        <th>Observations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sols & Plinthes</td>
+                        <td><input type="radio" name="sol" checked></td>
+                        <td><input type="radio" name="sol"></td>
+                        <td><input type="radio" name="sol"></td>
+                        <td><input type="radio" name="sol"></td>
+                        <td>Parquet rénové</td>
+                    </tr>
+                    <tr>
+                        <td>Canapé convertible</td>
+                        <td><input type="radio" name="canape" checked></td>
+                        <td><input type="radio" name="canape"></td>
+                        <td><input type="radio" name="canape"></td>
+                        <td><input type="radio" name="canape"></td>
+                        <td>Neuf</td>
+                    </tr>
+                    <tr>
+                        <td>Électroménager cuisine</td>
+                        <td><input type="radio" name="electro" checked></td>
+                        <td><input type="radio" name="electro"></td>
+                        <td><input type="radio" name="electro"></td>
+                        <td><input type="radio" name="electro"></td>
+                        <td>Propre et fonctionnel</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const input = document.getElementById('password').value;
+            if (input === '1234') { // Remplacez '1234' par votre mot de passe
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('protected-content').classList.remove('hidden');
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

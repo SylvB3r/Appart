@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Administrateur - Partage de Documents</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f8f9fa; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; }
+        .card { background: white; border-radius: 8px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .login-box { max-width: 400px; margin: 100px auto; text-align: center; }
+        input[type="password"] { padding: 10px; width: 80%; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; text-decoration: none; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; }
+        th { background: #2c3e50; color: white; }
+        .badge { padding: 3px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
+        .badge-success { background: #dcfce7; color: #15803d; }
+        .badge-warning { background: #fef9c3; color: #a16207; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Écran de connexion -->
+    <div id="login-screen" class="card login-box">
+        <h2>Accès Sécurisé - Bailleur</h2>
+        <p>Entrez le mot de passe pour accéder aux documents :</p>
+        <input type="password" id="password" placeholder="Mot de passe">
+        <br>
+        <button onclick="checkPassword()" class="btn">Se connecter</button>
+        <p id="error-msg" style="color: red; display: none; margin-top: 10px;">Mot de passe incorrect.</p>
+    </div>
+
+    <!-- Contenu protégé -->
+    <div id="protected-content" class="container hidden">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h1>Interface Administrateur</h1>
+            <a href="index.html" class="btn" style="background: #2c3e50;">← Retour à l'annonce</a>
+        </div>
+
+        <div class="card">
+            <h3>Informations Générales</h3>
+            <p><strong>Logement :</strong> Appt 203, 6 rue Rivoli, Angers (32,9 m²)</p>
+            <p><strong>Bailleurs :</strong> Mme Maguy BERNARD & M. Sylvain BERNARD</p>
+            <p><strong>Locataire :</strong> M. Louis DEFRENNE | <strong>Garant :</strong> Mme Hortense DUBREUIL</p>
+        </div>
+
+        <div class="card">
+            <h3>Tableau de Bord des Documents</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Document</th>
+                        <th>Fichier</th>
+                        <th>Statut</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Bail Meublé</strong></td>
+                        <td><code>Contrat_location_Rivoli.pdf</code></td>
+                        <td><span class="badge badge-success">Signé</span></td>
+                        <td><button class="btn" style="padding: 4px 8px; font-size: 0.8rem;">Télécharger</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acte de Caution</strong></td>
+                        <td><code>Acte_caution_solidaire.pdf</code></td>
+                        <td><span class="badge badge-success">Validé</span></td>
+                        <td><button class="btn" style="padding: 4px 8px; font-size: 0.8rem;">Télécharger</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Attestation DPE</strong></td>
+                        <td><code>DPE_2026.pdf</code></td>
+                        <td><span class="badge badge-success">Classe C</span></td>
+                        <td><button class="btn" style="padding: 4px 8px; font-size: 0.8rem;">Télécharger</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Assurance Habitation</strong></td>
+                        <td><em>En attente du locataire</em></td>
+                        <td><span class="badge badge-warning">En attente</span></td>
+                        <td><button class="btn" style="padding: 4px 8px; font-size: 0.8rem; background: #e67e22;">Relancer</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const input = document.getElementById('password').value;
+            // Remplacez '1234' par le mot de passe de votre choix
+            if (input === '1234') {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('protected-content').classList.remove('hidden');
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
