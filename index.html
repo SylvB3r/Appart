@@ -4,14 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Location T2 meublé 33 m² - Angers (Rue de Rivoli / UCO / ESA)</title>
-<link rel="stylesheet" href="style.css">
+    
+    <!-- Métadonnées OpenGraph (Partage propre sur WhatsApp, SMS, Facebook) -->
+    <meta property="og:title" content="Location T2 meublé 33 m² - Angers (UCO / ESA)">
+    <meta property="og:description" content="Loyer : 560 € CC. Direct propriétaire, sans frais d'agence.">
+    <meta property="og:image" content="https://sylvb3r.github.io/Appart/images/salon-1.jpg">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <nav class="navbar no-print">
     <a href="index.html" class="nav-btn active">🏠 Annonce</a>
     <a href="acces.html?redirect=admin.html" class="nav-btn">📁 Espace Admin</a>
     <a href="acces.html?redirect=etat-des-lieux.html" class="nav-btn">📋 État des Lieux</a>
 </nav>
+
     <header>
         <h1>Location T2 meublé - 33 m²</h1>
         <p>Angers (49000) - Rue de Rivoli - Quartier Madeleine / Saint-Léonard / Justices</p>
@@ -19,11 +28,16 @@
 
     <div class="container">
 
-        <!-- Synthèse Prix & Disponibilité -->
+        <!-- Synthèse Prix & Disponibilité avec Statut Dynamique -->
         <div class="card" style="text-align: center;">
+            <div style="margin-bottom: 15px;">
+                <span id="status-badge" style="background-color: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; display: inline-block;">
+                    🔴 Logement actuellement loué
+                </span>
+            </div>
             <div class="price-badge">560 € / mois (Charges comprises)</div>
-            <p><strong>Disponibilité :</strong> À partir du 1ᵉʳ septembre 2026</p>
-            <p><em>Idéal pour un étudiant (UCO / ESA) ou un jeune actif. Location directe propriétaire (sans frais d'agence).</em></p>
+            <p id="availability-text"><strong>Disponibilité :</strong> Non disponible actuellement</p>
+            <p><em>Location directe propriétaire (sans frais d'agence).</em></p>
         </div>
 
         <!-- Caractéristiques clés -->
@@ -202,7 +216,7 @@
             </div>
         </div>
 
-        <!-- Formulaire de Contact -->
+        <!-- Formulaire de Contact avec Redirection Personnalisée -->
         <div class="card">
             <h2>Contact & Candidature</h2>
             <p>Intéressé(e) par ce logement ? Remplissez le formulaire ci-dessous pour poser vos questions ou transmettre votre candidature :</p>
@@ -210,8 +224,14 @@
             <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
                 <input type="hidden" name="access_key" value="6a2724be-3dd6-421c-b63e-825481144133">
                 <input type="hidden" name="subject" value="Nouvelle candidature - T2 Rue de Rivoli">
+                <!-- Page de confirmation personnalisée Web3Forms -->
+                <input type="hidden" name="redirect" value="https://sylvb3r.github.io/Appart/index.html?sent=true#contact-form">
                 <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
                 
+                <div id="form-success-msg" style="display: none; background-color: #dcfce7; color: #15803d; border: 1px solid #86efac; padding: 12px; border-radius: 6px; font-weight: bold; text-align: center; margin-bottom: 15px;">
+                    ✅ Merci ! Votre candidature a bien été transmise. Nous vous recontacterons rapidement.
+                </div>
+
                 <div class="form-group">
                     <label for="name">Nom et Prénom :</label>
                     <input type="text" id="name" name="name" placeholder="Ex: Jean Dupont" required>
@@ -224,7 +244,10 @@
 
                 <div class="form-group">
                     <label for="dossier_link">Lien vers votre dossier sécurisé (Optionnel) :</label>
-                    <input type="url" id="dossier_link" name="dossier_link" placeholder="https://www.dossierfacile.fr/... ou Google Drive / Dropbox">
+                    <div style="display: flex; gap: 8px;">
+                        <input type="url" id="dossier_link" name="dossier_link" placeholder="https://www.dossierfacile.logement.gouv.fr/...">
+                        <button type="button" onclick="copyDossierLink()" style="background: #e2e8f0; border: 1px solid #cbd5e1; border-radius: 6px; padding: 0 12px; cursor: pointer; white-space: nowrap; font-size: 0.85rem;">📋 Copier</button>
+                    </div>
                     <small style="color: #666; font-size: 0.85rem; margin-top: 4px;">
                         💡 <strong>Transmission des pièces justificatives :</strong><br>
                         • <strong>Par lien :</strong> Partagez directement votre lien <a href="https://www.dossierfacile.logement.gouv.fr/" target="_blank" style="color: var(--accent-color);">DossierFacile.fr</a> (service public gratuit & sécurisé) ou un dossier Google Drive / Dropbox.<br>
@@ -286,7 +309,42 @@
             });
 
             initSlideshow();
+
+            // Gestion de la confirmation de formulaire Web3Forms
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('sent') === 'true') {
+                document.getElementById('form-success-msg').style.display = 'block';
+            }
+
+            // Gestion dynamique du statut via l'URL (?statut=dispo ou ?statut=loue)
+            const statutParam = urlParams.get('statut');
+            const badge = document.getElementById('status-badge');
+            const availText = document.getElementById('availability-text');
+
+            if (statutParam === 'dispo') {
+                badge.style.backgroundColor = '#dcfce7';
+                badge.style.color = '#15803d';
+                badge.style.borderColor = '#86efac';
+                badge.innerText = '🟢 Logement disponible à la réservation';
+                availText.innerHTML = '<strong>Disponibilité :</strong> À partir du 1ᵉʳ septembre 2026';
+            } else if (statutParam === 'loue') {
+                badge.style.backgroundColor = '#fef2f2';
+                badge.style.color = '#dc2626';
+                badge.style.borderColor = '#fca5a5';
+                badge.innerText = '🔴 Logement actuellement loué';
+                availText.innerHTML = '<strong>Disponibilité :</strong> Non disponible actuellement';
+            }
         });
+
+        function copyDossierLink() {
+            const input = document.getElementById('dossier_link');
+            if (input.value) {
+                navigator.clipboard.writeText(input.value);
+                alert("Lien copié dans le presse-papier !");
+            } else {
+                alert("Veuillez d'abord coller un lien dans la case.");
+            }
+        }
 
         function initSlideshow() {
             if (imagesList.length === 0) return;
