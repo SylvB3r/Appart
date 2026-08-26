@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Espace Administrateur - Gestion Locative - Rue de Rivoli</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-    <!-- Écran de connexion -->
+
+<nav class="navbar no-print">
+    <a href="index.html" class="nav-btn">🏠 Annonce</a>
+    <a href="admin.html" class="nav-btn active">📁 Espace Admin</a>
+    <a href="acces.html?redirect=etat-des-lieux.html" class="nav-btn">📋 État des Lieux</a>
+</nav>
+
+    <!-- Écran de connexion (Masqué si session déjà active) -->
     <div id="login-screen" class="card login-box">
         <h2>Accès Espace Administrateur</h2>
         <p>Entrez le mot de passe bailleur :</p>
