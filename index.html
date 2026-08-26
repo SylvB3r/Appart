@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Location T2 meublé 33 m² - Angers (Rue de Rivoli / UCO / ESA)</title>
     
-    <!-- Métadonnées OpenGraph (Partage propre sur WhatsApp, SMS, Facebook) -->
     <meta property="og:title" content="Location T2 meublé 33 m² - Angers (UCO / ESA)">
     <meta property="og:description" content="Loyer : 560 € CC. Direct propriétaire, sans frais d'agence.">
     <meta property="og:image" content="https://sylvb3r.github.io/Appart/images/salon-1.jpg">
@@ -21,26 +20,19 @@
     <a href="acces.html?redirect=etat-des-lieux.html" class="nav-btn">📋 État des Lieux</a>
 </nav>
 
-    <header>
-        <h1>Location T2 meublé - 33 m²</h1>
-        <p>Angers (49000) - Rue de Rivoli - Quartier Madeleine / Saint-Léonard / Justices</p>
+    <header style="background-color: var(--primary-color); color: white; padding: 40px 20px; text-align: center;">
+        <h1 style="margin: 0; font-size: 2.2rem; color: #ffffff; display: block;">Location T2 meublé - 33 m²</h1>
+        <p style="font-size: 1.2rem; margin-top: 10px; opacity: 0.9; color: #ffffff;">Angers (49000) - Rue de Rivoli - Quartier Madeleine / Saint-Léonard / Justices</p>
     </header>
 
     <div class="container">
 
-        <!-- Synthèse Prix & Disponibilité avec Statut Dynamique -->
         <div class="card" style="text-align: center;">
-            <div style="margin-bottom: 15px;">
-                <span id="status-badge" style="background-color: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; display: inline-block;">
-                    🔴 Logement actuellement loué
-                </span>
-            </div>
             <div class="price-badge">560 € / mois (Charges comprises)</div>
-            <p id="availability-text"><strong>Disponibilité :</strong> Non disponible actuellement</p>
-            <p><em>Location directe propriétaire (sans frais d'agence).</em></p>
+            <p><strong>Disponibilité :</strong> <span id="status-text" style="color: #dc2626; font-weight: bold;">🔴 Non disponible actuellement (Loué)</span></p>
+            <p><em>Idéal pour un étudiant (UCO / ESA) ou un jeune actif. Location directe propriétaire (sans frais d'agence).</em></p>
         </div>
 
-        <!-- Caractéristiques clés -->
         <div class="card">
             <h2>Caractéristiques du bien</h2>
             <div class="features-grid">
@@ -55,7 +47,6 @@
             </div>
         </div>
 
-        <!-- Description & Mobilier -->
         <div class="card">
             <h2>Description</h2>
             <p>Je propose à la location ce T2 meublé de 33 m², situé rue de Rivoli au 2ᵉ étage d'un immeuble sécurisé de 3 étages avec ascenseur à Angers (Quartier Madeleine / Saint-Léonard / Justices). Cet appartement offre un espace fonctionnel et confortable, idéal pour un étudiant ou un jeune actif.</p>
@@ -88,7 +79,6 @@
             </ul>
         </div>
         
-        <!-- Conditions & Emplacement -->
         <div class="card">
             <h2>Conditions financières & Localisation</h2>
             
@@ -126,7 +116,6 @@
             </div>
         </div>
 
-        <!-- Dossier de candidature & Documents -->
         <div class="card">
             <h2>Dossier de candidature & Documents à fournir</h2>
             <p>Afin de constituer votre dossier de location, merci de préparer les pièces justificatives suivantes :</p>
@@ -157,7 +146,6 @@
             </div>
         </div>
 
-        <!-- Diaporama (Slide Show) -->
         <div class="card">
             <h2>Visite virtuelle - Diaporama des photos</h2>
             <div class="slideshow-container">
@@ -174,7 +162,6 @@
             </div>
         </div>
         
-        <!-- Galerie Photos Structurée par Catégories -->
         <div class="card">
             <h2>Toutes les photos du logement</h2>
             <p><em>Cliquez sur une photo pour l'agrandir.</em></p>
@@ -216,7 +203,6 @@
             </div>
         </div>
 
-        <!-- Formulaire de Contact avec Redirection Personnalisée -->
         <div class="card">
             <h2>Contact & Candidature</h2>
             <p>Intéressé(e) par ce logement ? Remplissez le formulaire ci-dessous pour poser vos questions ou transmettre votre candidature :</p>
@@ -224,7 +210,6 @@
             <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
                 <input type="hidden" name="access_key" value="6a2724be-3dd6-421c-b63e-825481144133">
                 <input type="hidden" name="subject" value="Nouvelle candidature - T2 Rue de Rivoli">
-                <!-- Page de confirmation personnalisée Web3Forms -->
                 <input type="hidden" name="redirect" value="https://sylvb3r.github.io/Appart/index.html?sent=true#contact-form">
                 <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
                 
@@ -264,7 +249,6 @@
             </form>
         </div>
 
-        <!-- Section d'accès aux espaces sécurisés (Pied de page) -->
         <div class="card" style="text-align: center; background-color: #f1f5f9; border: 1px dashed var(--border-color);">
             <h3 style="background: none; padding: 0; border: none; font-size: 1.1rem; margin-top: 0;">Espaces Privés & Gestion Locative</h3>
             <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Accès restreint réservé au bailleur et au locataire muni du mot de passe.</p>
@@ -274,7 +258,6 @@
             </div>
         </div>
         
-        <!-- Boîte Modale / Lightbox Grand Écran -->
         <div id="lightbox" class="lightbox">
             <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
             <div class="lightbox-content-wrapper">
@@ -310,29 +293,22 @@
 
             initSlideshow();
 
-            // Gestion de la confirmation de formulaire Web3Forms
+            // Confirmation envoi Web3Forms
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('sent') === 'true') {
                 document.getElementById('form-success-msg').style.display = 'block';
             }
 
-            // Gestion dynamique du statut via l'URL (?statut=dispo ou ?statut=loue)
+            // Gestion dynamique de la disponibilité via l'URL (?statut=dispo ou ?statut=loue)
             const statutParam = urlParams.get('statut');
-            const badge = document.getElementById('status-badge');
-            const availText = document.getElementById('availability-text');
+            const statusText = document.getElementById('status-text');
 
             if (statutParam === 'dispo') {
-                badge.style.backgroundColor = '#dcfce7';
-                badge.style.color = '#15803d';
-                badge.style.borderColor = '#86efac';
-                badge.innerText = '🟢 Logement disponible à la réservation';
-                availText.innerHTML = '<strong>Disponibilité :</strong> À partir du 1ᵉʳ septembre 2026';
+                statusText.style.color = '#15803d';
+                statusText.innerText = '🟢 À partir du 1ᵉʳ septembre 2026';
             } else if (statutParam === 'loue') {
-                badge.style.backgroundColor = '#fef2f2';
-                badge.style.color = '#dc2626';
-                badge.style.borderColor = '#fca5a5';
-                badge.innerText = '🔴 Logement actuellement loué';
-                availText.innerHTML = '<strong>Disponibilité :</strong> Non disponible actuellement';
+                statusText.style.color = '#dc2626';
+                statusText.innerText = '🔴 Non disponible actuellement (Loué)';
             }
         });
 
