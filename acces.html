@@ -22,10 +22,11 @@
     </div>
 
     <script>
-        // Mot de passe fort recommandé (ex: "Rivoli49000!")
-        // Pour générer un nouveau hash SHA-256 sécurisé : console.log(await hashPassword("VOTRE_NOUVEAU_MDP"))
-        const HASH_ADMIN = "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca"; // Empreinte Admin
-        const HASH_EDL = "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca";   // Empreinte EDL
+        // Hashes autorisés pour A5179B (Majuscules) et a5179b (Minuscules)
+        const VALID_HASHES = [
+            "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca", // A5179B
+            "b6ad1a9faeef1e68ae8593414ec31dbcc8ca931e97d195c65f9a6568dd26806a"  // a5179b
+        ];
 
         async function hashPassword(pwd) {
             const encoder = new TextEncoder();
@@ -39,14 +40,17 @@
             const input = document.getElementById('password').value.trim();
             const inputHash = await hashPassword(input);
             const urlParams = new URLSearchParams(window.location.search);
-            const target = urlParams.get('target');
+            
+            // Récupère la destination via redirect ou target
+            const destination = urlParams.get('redirect') || urlParams.get('target');
 
-            if (inputHash === HASH_ADMIN || inputHash === HASH_EDL) {
-                // Stockage du jeton de session dans le navigateur
-                sessionStorage.setItem('auth_token', inputHash);
+            if (VALID_HASHES.includes(inputHash)) {
+                // On enregistre toujours le hash principal
+                sessionStorage.setItem('auth_token', "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca");
                 sessionStorage.setItem('auth_time', Date.now());
 
-                if (target === 'edl') {
+                // Redirection selon la destination demandée
+                if (destination === 'edl' || destination === 'etat-des-lieux.html') {
                     window.location.href = 'etat-des-lieux.html';
                 } else {
                     window.location.href = 'admin.html';
