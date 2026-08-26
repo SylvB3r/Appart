@@ -312,6 +312,7 @@
                         <tr><td>Meubles hauts & bas de cuisine</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Portes, charnières et étagères propres et ajustées</td></tr>
                         <tr><td>Plan de travail</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Sans brûlure ni fissure, joints en silicone propres</td></tr>
                         <tr><td>Évier, Egouttoir & Mitigeur</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Inox détartré, aucune fuite sous évier</td></tr>
+                        <tr><td>Chauffe-eau électrique (Ballon)</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Modèle : Cotherm BBSC0108. Étanchéité et chauffe vérifiées, pas de fuite au groupe de sécurité</td></tr>
                         <tr><td>Plaques vitrocéramiques (2 feux)</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Surface vitrée propre, feux testés fonctionnels</td></tr>
                         <tr><td>Hotte aspirante & Filtre</td><td class="td-center">1</td><td><span class="badge badge-b">Bon État</span></td><td>Éclairage et aspiration testés, filtre propre</td></tr>
                         <tr><td>Réfrigérateur avec freezer</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Propre, nettoyé, dégivré, balconnets intacts</td></tr>
@@ -400,7 +401,6 @@
     <script>
         function checkPassword() {
             const input = document.getElementById('password').value;
-            // Mot de passe d'accès (Remplacez '1234' si nécessaire)
             if (input === '1234') {
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('protected-content').classList.remove('hidden');
@@ -409,7 +409,6 @@
             }
         }
 
-        // Permet de valider avec la touche 'Entrée'
         document.getElementById('password').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 checkPassword();
