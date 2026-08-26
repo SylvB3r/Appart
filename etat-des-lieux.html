@@ -4,171 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>État des Lieux Contradictoire - Angers</title>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #27ae60;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-            --border-color: #cbd5e1;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1050px;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .login-box {
-            max-width: 400px;
-            margin: 100px auto;
-            text-align: center;
-        }
-
-        input[type="password"], input[type="text"] {
-            padding: 6px 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 0.9rem;
-            box-sizing: border-box;
-            width: 100%;
-        }
-
-        input[type="password"] {
-            width: 80%;
-            margin-bottom: 15px;
-        }
-
-        .btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn:hover { opacity: 0.9; }
-        .btn-back { background-color: var(--primary-color); }
-        .btn-print { background-color: #0284c7; }
-
-        h1, h2, h3 { color: var(--primary-color); }
-        h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
-        h3 {
-            font-size: 1.1rem;
-            background-color: #f1f5f9;
-            padding: 8px 12px;
-            border-left: 4px solid var(--primary-color);
-            margin-top: 25px;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-            background-color: #f8fafc;
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 20px;
-        }
-
-        .table-responsive { overflow-x: auto; }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            margin-bottom: 15px;
-            font-size: 0.88rem;
-        }
-
-        th, td {
-            border: 1px solid var(--border-color);
-            padding: 8px 10px;
-            text-align: left;
-        }
-
-        th { background-color: var(--primary-color); color: #ffffff; font-weight: 600; }
-        tr:nth-child(even) { background-color: #f8fafc; }
-        .td-center { text-align: center; }
-
-        /* Styles des Listes Déroulantes & Badges */
-        select.badge-select {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            border: 1px solid transparent;
-            cursor: pointer;
-            outline: none;
-        }
-
-        /* Codes Couleurs Dynamiques */
-        .badge-neuf { background-color: #f3e8ff; color: #8b5cf6; border-color: #d8b4fe !important; } /* Violet */
-        .badge-tbe  { background-color: #dcfce7; color: #15803d; border-color: #86efac !important; } /* Vert */
-        .badge-be   { background-color: #e0f2fe; color: #0369a1; border-color: #7dd3fc !important; } /* Bleu */
-        .badge-autre{ background-color: #f1f5f9; color: #475569; border-color: #cbd5e1 !important; } /* Gris */
-
-        .signature-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        .signature-box {
-            border: 1px dashed var(--border-color);
-            padding: 15px;
-            border-radius: 6px;
-            min-height: 100px;
-            background-color: #f8fafc;
-        }
-
-        .hidden { display: none; }
-
-        /* Optimisation pour impression / sauvegarde PDF */
-        @media print {
-            body { background-color: #fff; padding: 0; }
-            .no-print, #login-screen { display: none !important; }
-            #protected-content { display: block !important; }
-            .card { box-shadow: none; border: 1px solid #ccc; margin-bottom: 15px; page-break-inside: avoid; }
-            input[type="text"] { border: none; background: transparent; font-weight: bold; padding: 0; }
-            select.badge-select {
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-                border: none !important;
-                background: transparent !important;
-                padding: 0;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Écran de connexion -->
+<nav class="navbar no-print">
+    <a href="index.html" class="nav-btn">🏠 Annonce</a>
+    <a href="acces.html?redirect=admin.html" class="nav-btn">📁 Espace Admin</a>
+    <a href="etat-des-lieux.html" class="nav-btn active">📋 État des Lieux</a>
+</nav>
+
+    <!-- Écran de connexion (Masqué si session déjà active) -->
     <div id="login-screen" class="card login-box">
         <h2>Accès État des Lieux</h2>
         <p>Entrez le mot de passe d'accès :</p>
