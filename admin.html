@@ -311,14 +311,14 @@
     (function verifyAccess() {
         const token = sessionStorage.getItem('auth_token');
         const authTime = sessionStorage.getItem('auth_time');
-        const MAX_SESSION_DURATION = 2 * 60 * 60 * 1000;
+        const MAX_SESSION_DURATION = 2 * 60 * 60 * 1000; // 2 heures
 
+        // Le hash exact pour A5179B
         const VALID_HASHES = [
-            "852dc8b9ff692a7e7164ff03ebcfecb3133379963c46e3ddc6bcae8d386d4eb5",
-            "b40d39366dfdfc29ba1c5db6175e47c050a41d7cb3d0b27464faaaebccab8191"
+            "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca"
         ];
 
-        if (!token || !VALID_HASHES.includes(token) || (Date.now() - authTime > MAX_SESSION_DURATION)) {
+        if (!token || !VALID_HASHES.includes(token) || (Date.now() - Number(authTime) > MAX_SESSION_DURATION)) {
             sessionStorage.clear();
             window.location.href = 'acces.html';
         } else {
@@ -328,35 +328,6 @@
             });
         }
     })();
-        // Empreinte SHA-256 du mot de passe 'code entrée'
-        const TARGET_HASH = "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca";
-
-        async function hashPassword(str) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(str);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        async function checkPassword() {
-            const input = document.getElementById('password').value;
-            const hashedInput = await hashPassword(input);
-
-            if (hashedInput === TARGET_HASH) {
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('protected-content').classList.remove('hidden');
-                document.getElementById('error-msg').style.display = 'none';
-            } else {
-                document.getElementById('error-msg').style.display = 'block';
-            }
-        }
-
-        document.getElementById('password').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkPassword();
-            }
-        });
-    </script>
+</script>
 </body>
 </html>
