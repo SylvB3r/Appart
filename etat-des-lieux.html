@@ -24,7 +24,7 @@
         }
 
         .container {
-            max-width: 950px;
+            max-width: 1050px;
             margin: 0 auto;
         }
 
@@ -43,11 +43,12 @@
         }
 
         input[type="password"], input[type="text"] {
-            padding: 8px 12px;
+            padding: 6px 10px;
             border: 1px solid var(--border-color);
             border-radius: 4px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             box-sizing: border-box;
+            width: 100%;
         }
 
         input[type="password"] {
@@ -100,7 +101,7 @@
             border-collapse: collapse;
             margin-top: 10px;
             margin-bottom: 15px;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
 
         th, td {
@@ -113,19 +114,22 @@
         tr:nth-child(even) { background-color: #f8fafc; }
         .td-center { text-align: center; }
 
-        /* Badges de statut et codes couleur */
-        .badge {
-            display: inline-block;
-            padding: 3px 9px;
+        /* Styles des Listes Déroulantes & Badges */
+        select.badge-select {
+            padding: 4px 8px;
             border-radius: 12px;
             font-size: 0.8rem;
             font-weight: bold;
+            border: 1px solid transparent;
+            cursor: pointer;
+            outline: none;
         }
 
-        .badge-neuf { background-color: #f3e8ff; color: #8b5cf6; } /* Violet */
-        .badge-tbe  { background-color: #dcfce7; color: #15803d; } /* Vert */
-        .badge-be   { background-color: #e0f2fe; color: #0369a1; } /* Bleu */
-        .badge-autre{ background-color: #f1f5f9; color: #475569; } /* Gris */
+        /* Codes Couleurs Dynamiques */
+        .badge-neuf { background-color: #f3e8ff; color: #8b5cf6; border-color: #d8b4fe !important; } /* Violet */
+        .badge-tbe  { background-color: #dcfce7; color: #15803d; border-color: #86efac !important; } /* Vert */
+        .badge-be   { background-color: #e0f2fe; color: #0369a1; border-color: #7dd3fc !important; } /* Bleu */
+        .badge-autre{ background-color: #f1f5f9; color: #475569; border-color: #cbd5e1 !important; } /* Gris */
 
         .signature-grid {
             display: grid;
@@ -151,6 +155,14 @@
             #protected-content { display: block !important; }
             .card { box-shadow: none; border: 1px solid #ccc; margin-bottom: 15px; page-break-inside: avoid; }
             input[type="text"] { border: none; background: transparent; font-weight: bold; padding: 0; }
+            select.badge-select {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                border: none !important;
+                background: transparent !important;
+                padding: 0;
+            }
         }
     </style>
 </head>
@@ -218,7 +230,16 @@
                                 • Code d'accès entrée immeuble<br>
                                 • 1 clé local poubelles
                             </td>
-                            <td><span class="badge badge-tbe">Très Bon État</span> - Clés physiques remises, code transmis</td>
+                            <td>
+                                <select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)">
+                                    <option value="neuf">Neuf</option>
+                                    <option value="tbe" selected>Très Bon État</option>
+                                    <option value="be">Bon État</option>
+                                    <option value="moyen">État Moyen</option>
+                                    <option value="mauvais">Mauvais État</option>
+                                </select>
+                                - Clés physiques remises, code transmis
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -238,16 +259,17 @@
                             <th class="td-center">Qté</th>
                             <th>État Actuel</th>
                             <th>Observations & Détaillages</th>
+                            <th>Remarques / Commentaires</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Porte d'entrée & Serrure</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Serrure fonctionnelle, judas et poignée impeccables</td></tr>
-                        <tr><td>Sols / Plinthes</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Sol vinyle correct</td></tr>
-                        <tr><td>Murs & Peintures</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Peinture blanche récente, propre</td></tr>
-                        <tr><td>Plafond & Éclairage</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Plafond propre, luminaire fixe fonctionnel avec ampoule LED</td></tr>
-                        <tr><td>Interphone / Visiophone</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Testé, sonnerie et ouverture à distance opérationnelles</td></tr>
-                        <tr><td>Placard intégré avec penderie</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Portes coulissantes fonctionnelles, étagères et barre de penderie solides</td></tr>
-                        <tr><td>Tableau électrique & Linky</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Aux normes, disjoncteurs étiquetés</td></tr>
+                        <tr><td>Porte d'entrée & Serrure</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Serrure fonctionnelle, judas et poignée impeccables</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Sols / Plinthes</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Sol vinyle correct</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Murs & Peintures</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Peinture blanche récente, propre</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Plafond & Éclairage</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Plafond propre, luminaire fixe fonctionnel avec ampoule LED</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Interphone / Visiophone</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Testé, sonnerie et ouverture à distance opérationnelles</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Placard intégré avec penderie</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Portes coulissantes fonctionnelles, étagères et barre de penderie solides</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Tableau électrique & Linky</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Aux normes, disjoncteurs étiquetés</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -261,19 +283,20 @@
                             <th class="td-center">Qté</th>
                             <th>État Actuel</th>
                             <th>Observations & Détaillages</th>
+                            <th>Remarques / Commentaires</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Sols / Plinthes</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Sol vinyle correct</td></tr>
-                        <tr><td>Murs & Peintures</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Peintures gris/vert et blanches neuves</td></tr>
-                        <tr><td>Fenêtres & Volets</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Double vitrage, volet roulant</td></tr>
-                        <tr><td>Radiateur électrique (Inertie)</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Propre, thermostat testé</td></tr>
-                        <tr><td>Prises électriques & Prise RJ45</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Prises fixes, boîtier PTO fibre installé</td></tr>
-                        <tr><td>Canapé convertible</td><td class="td-center">1</td><td><span class="badge badge-neuf">Neuf</span></td><td>Assise et matelas impeccables, mécanisme fluide</td></tr>
-                        <tr><td>Table basse</td><td class="td-center">1</td><td><span class="badge badge-neuf">Neuf</span></td><td>Sans rayure ni éclat</td></tr>
-                        <tr><td>Bureau & Chaise de bureau</td><td class="td-center">1</td><td><span class="badge badge-neuf">Neuf</span></td><td>Mobilier solide, propre</td></tr>
-                        <tr><td>Table à manger & Chaises</td><td class="td-center">1+3</td><td><span class="badge badge-neuf">Neuf</span></td><td>Table fixe et 3 chaises stables et propres</td></tr>
-                        <tr><td>Meuble de rangement / Étagères</td><td class="td-center">1</td><td><span class="badge badge-neuf">Neuf</span></td><td>Structure stable</td></tr>
+                        <tr><td>Sols / Plinthes</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Sol vinyle correct</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Murs & Peintures</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Peintures gris/vert et blanches neuves</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Fenêtres & Volets</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Double vitrage, volet roulant</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Radiateur électrique (Inertie)</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Propre, thermostat testé</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Prises électriques & Prise RJ45</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Prises fixes, boîtier PTO fibre installé</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Canapé convertible</td><td class="td-center">1</td><td><select class="badge-select badge-neuf" onchange="updateBadgeStyle(this)"><option value="neuf" selected>Neuf</option><option value="tbe">Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Assise et matelas impeccables, mécanisme fluide</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Table basse</td><td class="td-center">1</td><td><select class="badge-select badge-neuf" onchange="updateBadgeStyle(this)"><option value="neuf" selected>Neuf</option><option value="tbe">Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Sans rayure ni éclat</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Bureau & Chaise de bureau</td><td class="td-center">1</td><td><select class="badge-select badge-neuf" onchange="updateBadgeStyle(this)"><option value="neuf" selected>Neuf</option><option value="tbe">Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Mobilier solide, propre</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Table à manger & Chaises</td><td class="td-center">1+3</td><td><select class="badge-select badge-neuf" onchange="updateBadgeStyle(this)"><option value="neuf" selected>Neuf</option><option value="tbe">Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Table fixe et 3 chaises stables et propres</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Meuble de rangement / Étagères</td><td class="td-center">1</td><td><select class="badge-select badge-neuf" onchange="updateBadgeStyle(this)"><option value="neuf" selected>Neuf</option><option value="tbe">Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Structure stable</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -287,20 +310,21 @@
                             <th class="td-center">Qté</th>
                             <th>État Actuel</th>
                             <th>Observations & Détaillages</th>
+                            <th>Remarques / Commentaires</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Sols & Credence</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Carrelage / Credence propre et dégraissée</td></tr>
-                        <tr><td>Meubles hauts & bas</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Portes et étagères propres</td></tr>
-                        <tr><td>Plan de travail</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Sans brûlure ni fissure</td></tr>
-                        <tr><td>Évier & Mitigeur</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Inox détartré, aucune fuite</td></tr>
-                        <tr><td>Chauffe-eau électrique (Ballon)</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Cotherm BBSC0108 - Pas de fuite</td></tr>
-                        <tr><td>Plaques vitrocéramiques (2 feux)</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Surface propre, feux fonctionnels</td></tr>
-                        <tr><td>Hotte aspirante</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Éclairage et aspiration testés</td></tr>
-                        <tr><td>Réfrigérateur avec freezer</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Propre, dégivré</td></tr>
-                        <tr><td>Four micro-ondes</td><td class="td-center">1</td><td><span class="badge badge-neuf">Neuf</span></td><td>Plateau présent, propre</td></tr>
-                        <tr><td>Lave-linge</td><td class="td-center">1</td><td><span class="badge badge-neuf">Neuf</span></td><td>Bac et joint propres, fonctionnel</td></tr>
-                        <tr><td>Poubelle & Matériel ménage</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Poubelle, balai, serpillière et seau fournis</td></tr>
+                        <tr><td>Sols & Credence</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Carrelage / Credence propre et dégraissée</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Meubles hauts & bas</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Portes et étagères propres</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Plan de travail</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Sans brûlure ni fissure</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Évier & Mitigeur</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Inox détartré, aucune fuite</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Chauffe-eau électrique (Ballon)</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Cotherm BBSC0108 - Pas de fuite</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Plaques vitrocéramiques (2 feux)</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Surface propre, feux fonctionnels</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Hotte aspirante</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Éclairage et aspiration testés</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Réfrigérateur avec freezer</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Propre, dégivré</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Four micro-ondes</td><td class="td-center">1</td><td><select class="badge-select badge-neuf" onchange="updateBadgeStyle(this)"><option value="neuf" selected>Neuf</option><option value="tbe">Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Plateau présent, propre</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Lave-linge</td><td class="td-center">1</td><td><select class="badge-select badge-neuf" onchange="updateBadgeStyle(this)"><option value="neuf" selected>Neuf</option><option value="tbe">Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Bac et joint propres, fonctionnel</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Poubelle & Matériel ménage</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Poubelle, balai, serpillière et seau fournis</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -314,18 +338,19 @@
                             <th class="td-center">Qté</th>
                             <th>État Actuel</th>
                             <th>Observations & Détaillages</th>
+                            <th>Remarques / Commentaires</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Sols / Plinthes</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Parquet stratifié propre</td></tr>
-                        <tr><td>Murs & Peintures</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Peintures fraîches</td></tr>
-                        <tr><td>Fenêtre & Store / Rideau</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Ouverture facile</td></tr>
-                        <tr><td>Radiateur électrique</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Chauffe correctement</td></tr>
-                        <tr><td>Lit double (140x190) & Cadre</td><td class="td-center">1</td><td><span class="badge badge-neuf">Neuf</span></td><td>Structure solide et stable</td></tr>
-                        <tr><td>Sommier à lattes</td><td class="td-center">1</td><td><span class="badge badge-neuf">Neuf</span></td><td>Lattes intactes</td></tr>
-                        <tr><td>Matelas (140x190) & Alèse</td><td class="td-center">1</td><td><span class="badge badge-neuf">Neuf</span></td><td>Propre, avec alèse neuve</td></tr>
-                        <tr><td>Commode 3 tiroirs</td><td class="td-center">1</td><td><span class="badge badge-neuf">Neuf</span></td><td>Tiroirs coulissent parfaitement</td></tr>
-                        <tr><td>Table & Lampe de chevet</td><td class="td-center">1</td><td><span class="badge badge-neuf">Neuf</span></td><td>Lampe fonctionnelle avec ampoule</td></tr>
+                        <tr><td>Sols / Plinthes</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Parquet stratifié propre</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Murs & Peintures</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Peintures fraîches</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Fenêtre & Store / Rideau</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Ouverture facile</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Radiateur électrique</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Chauffe correctement</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Lit double (140x190) & Cadre</td><td class="td-center">1</td><td><select class="badge-select badge-neuf" onchange="updateBadgeStyle(this)"><option value="neuf" selected>Neuf</option><option value="tbe">Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Structure solide et stable</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Sommier à lattes</td><td class="td-center">1</td><td><select class="badge-select badge-neuf" onchange="updateBadgeStyle(this)"><option value="neuf" selected>Neuf</option><option value="tbe">Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Lattes intactes</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Matelas (140x190) & Alèse</td><td class="td-center">1</td><td><select class="badge-select badge-neuf" onchange="updateBadgeStyle(this)"><option value="neuf" selected>Neuf</option><option value="tbe">Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Propre, avec alèse neuve</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Commode 3 tiroirs</td><td class="td-center">1</td><td><select class="badge-select badge-neuf" onchange="updateBadgeStyle(this)"><option value="neuf" selected>Neuf</option><option value="tbe">Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Tiroirs coulissent parfaitement</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Table & Lampe de chevet</td><td class="td-center">1</td><td><select class="badge-select badge-neuf" onchange="updateBadgeStyle(this)"><option value="neuf" selected>Neuf</option><option value="tbe">Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Lampe fonctionnelle avec ampoule</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -339,17 +364,18 @@
                             <th class="td-center">Qté</th>
                             <th>État Actuel</th>
                             <th>Observations & Détaillages</th>
+                            <th>Remarques / Commentaires</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Porte & Verrou</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Fermeture et verrouillage fonctionnels</td></tr>
-                        <tr><td>Sols & Faïence murale</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Carrelage propre, joints étanches</td></tr>
-                        <tr><td>Baignoire & Pare-douche</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Émail intact, pare-douche propre</td></tr>
-                        <tr><td>Robinetterie / Douchette</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Testés, aucune fuite</td></tr>
-                        <tr><td>Meuble vasque, Lavabo & Miroir</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Rangement propre, miroir intact</td></tr>
-                        <tr><td>Cuvette WC & Chasse d'eau</td><td class="td-center">1</td><td><span class="badge badge-be">Bon État</span></td><td>Détartré, pas de fuite</td></tr>
-                        <tr><td>Porte-serviettes & Accessoires</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Brosse WC neuve</td></tr>
-                        <tr><td>VMC</td><td class="td-center">1</td><td><span class="badge badge-tbe">Très Bon État</span></td><td>Aspiration continue constatée</td></tr>
+                        <tr><td>Porte & Verrou</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Fermeture et verrouillage fonctionnels</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Sols & Faïence murale</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Carrelage propre, joints étanches</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Baignoire & Pare-douche</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Émail intact, pare-douche propre</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Robinetterie / Douchette</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Testés, aucune fuite</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Meuble vasque, Lavabo & Miroir</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Rangement propre, miroir intact</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Cuvette WC & Chasse d'eau</td><td class="td-center">1</td><td><select class="badge-select badge-be" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe">Très Bon État</option><option value="be" selected>Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Détartré, pas de fuite</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>Porte-serviettes & Accessoires</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Brosse WC neuve</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
+                        <tr><td>VMC</td><td class="td-center">1</td><td><select class="badge-select badge-tbe" onchange="updateBadgeStyle(this)"><option value="neuf">Neuf</option><option value="tbe" selected>Très Bon État</option><option value="be">Bon État</option><option value="moyen">État Moyen</option><option value="mauvais">Mauvais État</option></select></td><td>Aspiration continue constatée</td><td><input type="text" class="comment-input" placeholder="Ajouter une remarque..."></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -383,7 +409,7 @@
             if (input === '1234') {
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('protected-content').classList.remove('hidden');
-                loadSavedIndexes();
+                loadSavedData();
             } else {
                 document.getElementById('error-msg').style.display = 'block';
             }
@@ -393,9 +419,20 @@
             if (e.key === 'Enter') checkPassword();
         });
 
-        // Auto-sauvegarde des index saisie dans le navigateur (localStorage)
+        // Mise à jour de la couleur de la liste déroulante au changement d'option
+        function updateBadgeStyle(selectElement) {
+            selectElement.className = 'badge-select';
+            const val = selectElement.value;
+            if (val === 'neuf') selectElement.classList.add('badge-neuf');
+            else if (val === 'tbe') selectElement.classList.add('badge-tbe');
+            else if (val === 'be') selectElement.classList.add('badge-be');
+            else selectElement.classList.add('badge-autre');
+        }
+
+        // Auto-sauvegarde des index et commentaires dans le navigateur (localStorage)
         const elecInput = document.getElementById('index-elec');
         const eauInput = document.getElementById('index-eau');
+        const commentInputs = document.querySelectorAll('.comment-input');
 
         elecInput.addEventListener('input', () => {
             localStorage.setItem('edl_index_elec', elecInput.value);
@@ -405,13 +442,25 @@
             localStorage.setItem('edl_index_eau', eauInput.value);
         });
 
-        function loadSavedIndexes() {
+        commentInputs.forEach((input, index) => {
+            input.id = `comment-${index}`;
+            input.addEventListener('input', () => {
+                localStorage.setItem(`edl_comment_${index}`, input.value);
+            });
+        });
+
+        function loadSavedData() {
             if (localStorage.getItem('edl_index_elec')) {
                 elecInput.value = localStorage.getItem('edl_index_elec');
             }
             if (localStorage.getItem('edl_index_eau')) {
                 eauInput.value = localStorage.getItem('edl_index_eau');
             }
+            commentInputs.forEach((input, index) => {
+                if (localStorage.getItem(`edl_comment_${index}`)) {
+                    input.value = localStorage.getItem(`edl_comment_${index}`);
+                }
+            });
         }
     </script>
 </body>
