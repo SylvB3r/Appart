@@ -16,35 +16,20 @@
     </div>
 
     <script>
-        // Empreintes autorisées : A5179B, a5179b, et l'ancien code entrée (au cas où)
-        const VALID_HASHES = [
-            "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca", // A5179B
-            "b6ad1a9faeef1e68ae8593414ec31dbcc8ca931e97d195c65f9a6568dd26806a", // a5179b
-            "852dc8b9ff692a7e7164ff03ebcfecb3133379963c46e3ddc6bcae8d386d4eb5", // A7951B
-            "b40d39366dfdfc29ba1c5db6175e47c050a41d7cb3d0b27464faaaebccab8191"  // code entrée
-        ];
-
-        async function hashPassword(pwd) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(pwd);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        async function login() {
+        function login() {
             const input = document.getElementById('password').value.trim();
-            const inputHash = await hashPassword(input);
             const urlParams = new URLSearchParams(window.location.search);
-            
             const destination = urlParams.get('redirect') || urlParams.get('target') || 'admin.html';
 
-            if (VALID_HASHES.includes(inputHash)) {
-                // On enregistre le jeton de session
+            // Mots de passe acceptés (insensible à la casse)
+            const mdpSaisi = input.toUpperCase();
+
+            if (mdpSaisi === "A5179B" || mdpSaisi === "A7951B" || input === "code entrée") {
+                // Création du jeton de session pour débloquer admin.html et etat-des-lieux.html
                 sessionStorage.setItem('auth_token', "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca");
                 sessionStorage.setItem('auth_time', Date.now());
 
-                // Redirection
+                // Redirection vers la page demandée
                 if (destination === 'edl' || destination === 'etat-des-lieux.html') {
                     window.location.href = 'etat-des-lieux.html';
                 } else {
