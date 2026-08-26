@@ -311,20 +311,20 @@
     (function verifyAccess() {
         const token = sessionStorage.getItem('auth_token');
         const authTime = sessionStorage.getItem('auth_time');
-        const MAX_SESSION_DURATION = 2 * 60 * 60 * 1000;
+        const MAX_SESSION_DURATION = 2 * 60 * 60 * 1000; // 2 heures
 
         const VALID_HASHES = [
             "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca"
         ];
 
+        // Vérification du jeton et du délai d'expiration
         if (!token || !VALID_HASHES.includes(token) || (Date.now() - Number(authTime) > MAX_SESSION_DURATION)) {
             sessionStorage.clear();
             window.location.href = 'acces.html?redirect=admin.html';
         } else {
-            document.addEventListener("DOMContentLoaded", () => {
-                document.getElementById('login-screen')?.classList.add('hidden');
-                document.getElementById('protected-content')?.classList.remove('hidden');
-            });
+            // Affichage direct du contenu protégé
+            document.getElementById('login-screen')?.classList.add('hidden');
+            document.getElementById('protected-content')?.classList.remove('hidden');
         }
     })();
 </script>
