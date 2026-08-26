@@ -402,100 +402,73 @@
         </div>
     </div>
 
-    <script>
+<script>
+    // 1. Contrôle d'accès automatique via la session acces.html
     (function verifyAccess() {
         const token = sessionStorage.getItem('auth_token');
         const authTime = sessionStorage.getItem('auth_time');
-        const MAX_SESSION_DURATION = 2 * 60 * 60 * 1000;
+        const MAX_SESSION_DURATION = 2 * 60 * 60 * 1000; // 2 heures
 
+        // Le hash exact pour A5179B
         const VALID_HASHES = [
-            "852dc8b9ff692a7e7164ff03ebcfecb3133379963c46e3ddc6bcae8d386d4eb5",
-            "b40d39366dfdfc29ba1c5db6175e47c050a41d7cb3d0b27464faaaebccab8191"
+            "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca"
         ];
 
-        if (!token || !VALID_HASHES.includes(token) || (Date.now() - authTime > MAX_SESSION_DURATION)) {
+        if (!token || !VALID_HASHES.includes(token) || (Date.now() - Number(authTime) > MAX_SESSION_DURATION)) {
             sessionStorage.clear();
             window.location.href = 'acces.html';
         } else {
             document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById('login-screen')?.classList.add('hidden');
                 document.getElementById('protected-content')?.classList.remove('hidden');
+                loadSavedData(); // Recharge les index sauvegardés
             });
         }
     })();
-// Empreinte SHA-256 du mot de passe 'code entrée'
-        const TARGET_HASH = "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca";
 
-        async function hashPassword(str) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(str);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
+    // 2. Gestion des badges de couleur
+    function updateBadgeStyle(selectElement) {
+        selectElement.className = 'badge-select';
+        const val = selectElement.value;
+        if (val === 'neuf') selectElement.classList.add('badge-neuf');
+        else if (val === 'tbe') selectElement.classList.add('badge-tbe');
+        else if (val === 'be') selectElement.classList.add('badge-be');
+        else selectElement.classList.add('badge-autre');
+    }
 
-        async function checkPassword() {
-            const input = document.getElementById('password').value;
-            const hashedInput = await hashPassword(input);
+    // 3. Auto-sauvegarde des index et commentaires (localStorage)
+    const elecInput = document.getElementById('index-elec');
+    const eauInput = document.getElementById('index-eau');
+    const commentInputs = document.querySelectorAll('.comment-input');
 
-            if (hashedInput === TARGET_HASH) {
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('protected-content').classList.remove('hidden');
-                document.getElementById('error-msg').style.display = 'none';
-            } else {
-                document.getElementById('error-msg').style.display = 'block';
-            }
-        }
+    elecInput?.addEventListener('input', () => {
+        localStorage.setItem('edl_index_elec', elecInput.value);
+    });
 
-        document.getElementById('password').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkPassword();
-            }
+    eauInput?.addEventListener('input', () => {
+        localStorage.setItem('edl_index_eau', eauInput.value);
+    });
+
+    commentInputs.forEach((input, index) => {
+        input.id = `comment-${index}`;
+        input.addEventListener('input', () => {
+            localStorage.setItem(`edl_comment_${index}`, input.value);
         });
+    });
 
-        // Mise à jour de la couleur de la liste déroulante au changement d'option
-        function updateBadgeStyle(selectElement) {
-            selectElement.className = 'badge-select';
-            const val = selectElement.value;
-            if (val === 'neuf') selectElement.classList.add('badge-neuf');
-            else if (val === 'tbe') selectElement.classList.add('badge-tbe');
-            else if (val === 'be') selectElement.classList.add('badge-be');
-            else selectElement.classList.add('badge-autre');
+    function loadSavedData() {
+        if (localStorage.getItem('edl_index_elec') && elecInput) {
+            elecInput.value = localStorage.getItem('edl_index_elec');
         }
-
-        // Auto-sauvegarde des index et commentaires dans le navigateur (localStorage)
-        const elecInput = document.getElementById('index-elec');
-        const eauInput = document.getElementById('index-eau');
-        const commentInputs = document.querySelectorAll('.comment-input');
-
-        elecInput.addEventListener('input', () => {
-            localStorage.setItem('edl_index_elec', elecInput.value);
-        });
-
-        eauInput.addEventListener('input', () => {
-            localStorage.setItem('edl_index_eau', eauInput.value);
-        });
-
+        if (localStorage.getItem('edl_index_eau') && eauInput) {
+            eauInput.value = localStorage.getItem('edl_index_eau');
+        }
         commentInputs.forEach((input, index) => {
-            input.id = `comment-${index}`;
-            input.addEventListener('input', () => {
-                localStorage.setItem(`edl_comment_${index}`, input.value);
-            });
+            if (localStorage.getItem(`edl_comment_${index}`)) {
+                input.value = localStorage.getItem(`edl_comment_${index}`);
+            }
         });
-
-        function loadSavedData() {
-            if (localStorage.getItem('edl_index_elec')) {
-                elecInput.value = localStorage.getItem('edl_index_elec');
-            }
-            if (localStorage.getItem('edl_index_eau')) {
-                eauInput.value = localStorage.getItem('edl_index_eau');
-            }
-            commentInputs.forEach((input, index) => {
-                if (localStorage.getItem(`edl_comment_${index}`)) {
-                    input.value = localStorage.getItem(`edl_comment_${index}`);
-                }
-            });
-        }
-    </script>
+    }
+</script>
 </body>
 </html>
