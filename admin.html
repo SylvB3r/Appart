@@ -3,94 +3,356 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Espace Administrateur - Partage de Documents</title>
+    <title>Espace Administrateur - Gestion Locative - Rue de Rivoli</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f8f9fa; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: auto; }
-        .card { background: white; border-radius: 8px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .login-box { max-width: 400px; margin: 100px auto; text-align: center; }
-        input[type="password"] { padding: 10px; width: 80%; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
-        .btn { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; text-decoration: none; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; }
-        th { background: #2c3e50; color: white; }
-        .badge { padding: 3px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
-        .badge-success { background: #dcfce7; color: #15803d; }
-        .badge-warning { background: #fef9c3; color: #a16207; }
-        .hidden { display: none; }
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #cbd5e1;
+            --alert-bg: #eff6ff;
+            --alert-border: #3b82f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .login-box {
+            max-width: 400px;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        input[type="password"] {
+            width: 80%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-back {
+            background-color: var(--primary-color);
+        }
+
+        .btn-download {
+            background-color: #3b82f6;
+            font-size: 0.85rem;
+            padding: 6px 12px;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+
+        h2 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .doc-category {
+            margin-bottom: 25px;
+        }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .doc-item {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .doc-item h4 {
+            margin: 0 0 8px 0;
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .doc-item p {
+            margin: 0 0 12px 0;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .badge-mandatory {
+            background-color: #fee2e2;
+            color: #991b1b;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .badge-optional {
+            background-color: #f3f4f6;
+            color: #4b5563;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .info-box {
+            background-color: var(--alert-bg);
+            border-left: 4px solid var(--alert-border);
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
 
     <!-- Écran de connexion -->
     <div id="login-screen" class="card login-box">
-        <h2>Accès Sécurisé - Bailleur</h2>
-        <p>Entrez le mot de passe pour accéder aux documents :</p>
+        <h2>Accès Espace Administrateur</h2>
+        <p>Entrez le mot de passe bailleur :</p>
         <input type="password" id="password" placeholder="Mot de passe">
         <br>
-        <button onclick="checkPassword()" class="btn">Se connecter</button>
+        <button onclick="checkPassword()" class="btn">Accéder</button>
         <p id="error-msg" style="color: red; display: none; margin-top: 10px;">Mot de passe incorrect.</p>
     </div>
 
     <!-- Contenu protégé -->
     <div id="protected-content" class="container hidden">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <h1>Interface Administrateur</h1>
-            <a href="index.html" class="btn" style="background: #2c3e50;">← Retour à l'annonce</a>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+            <h1 style="margin: 0;">Espace de Gestion Locative & Documents</h1>
+            <a href="index.html" class="btn btn-back">← Retour à l'annonce</a>
         </div>
 
-        <div class="card">
-            <h3>Informations Générales</h3>
-            <p><strong>Logement :</strong> Appt 203, 6 rue Rivoli, Angers (32,9 m²)</p>
-            <p><strong>Bailleurs :</strong> Mme Maguy BERNARD & M. Sylvain BERNARD</p>
-            <p><strong>Locataire :</strong> M. Louis DEFRENNE | <strong>Garant :</strong> Mme Hortense DUBREUIL</p>
+        <div class="info-box">
+            📌 <strong>Centre de ressources bailleur :</strong> Retrouvez ici tous les documents obligatoires requis par la loi Alur pour la mise en location du T2 (33 m² - Angers), ainsi que les modèles de gestion courante.
         </div>
 
-        <div class="card">
-            <h3>Tableau de Bord des Documents</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Document</th>
-                        <th>Fichier</th>
-                        <th>Statut</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Bail Meublé</strong></td>
-                        <td><code>Contrat_location_Rivoli.pdf</code></td>
-                        <td><span class="badge badge-success">Signé</span></td>
-                        <td><button class="btn" style="padding: 4px 8px; font-size: 0.8rem;">Télécharger</button></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Acte de Caution</strong></td>
-                        <td><code>Acte_caution_solidaire.pdf</code></td>
-                        <td><span class="badge badge-success">Validé</span></td>
-                        <td><button class="btn" style="padding: 4px 8px; font-size: 0.8rem;">Télécharger</button></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Attestation DPE</strong></td>
-                        <td><code>DPE_2026.pdf</code></td>
-                        <td><span class="badge badge-success">Classe C</span></td>
-                        <td><button class="btn" style="padding: 4px 8px; font-size: 0.8rem;">Télécharger</button></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Assurance Habitation</strong></td>
-                        <td><em>En attente du locataire</em></td>
-                        <td><span class="badge badge-warning">En attente</span></td>
-                        <td><button class="btn" style="padding: 4px 8px; font-size: 0.8rem; background: #e67e22;">Relancer</button></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- 1. Dossier Contractuel -->
+        <div class="card doc-category">
+            <h2>1. Dossier Contractuel & Bail de Location</h2>
+            <div class="doc-grid">
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-mandatory">Obligatoire</span>
+                        <h4>Contrat de Bail Meublé Type Loi Alur</h4>
+                        <p>Contrat standard conforme pour un logement meublé à titre de résidence principale (1 an ou 9 mois étudiant).</p>
+                    </div>
+                    <a href="docs/contrat-de-bail-meuble.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-mandatory">Obligatoire</span>
+                        <h4>Notice d'Information Droits & Devoirs</h4>
+                        <p>Document obligatoire à annexer au contrat de bail précisant les droits et obligations des locataires et bailleurs.</p>
+                    </div>
+                    <a href="docs/notice-information-location.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-mandatory">Obligatoire</span>
+                        <h4>Acte de Cautionnement Solidaire</h4>
+                        <p>Engagement officiel à faire signer par le ou les garants physiques (parents, etc.).</p>
+                    </div>
+                    <a href="docs/acte-de-caution-solidaire.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-mandatory">Obligatoire</span>
+                        <h4>Inventaire & État des Lieux Entrée</h4>
+                        <p>Lien direct vers la fiche interactive et l'imprimé d'état des lieux contradictoire avec le mobilier.</p>
+                    </div>
+                    <a href="etat-des-lieux.html" class="btn" style="font-size: 0.85rem; padding: 6px 12px;">Accéder à la page</a>
+                </div>
+            </div>
         </div>
+
+        <!-- 2. Diagnostics Techniques Obligatoires (DDT) -->
+        <div class="card doc-category">
+            <h2>2. Dossier de Diagnostic Technique (DDT)</h2>
+            <div class="doc-grid">
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-mandatory">Obligatoire</span>
+                        <h4>Diagnostic de Performance Énergétique (DPE)</h4>
+                        <p>DPE Classe C du logement, incluant la consommation estimée et les émissions de GES.</p>
+                    </div>
+                    <a href="docs/dpe-appartement.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-mandatory">Obligatoire</span>
+                        <h4>État des Risques et Pollutions (ERP)</h4>
+                        <p>Diagnostic ERP officiel mis à jour pour la parcelle du bien à Angers (risques naturels, sismiques, radon).</p>
+                    </div>
+                    <a href="docs/erp-angers-rivoli.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-mandatory">Obligatoire</span>
+                        <h4>Diagnostic Installation Électrique</h4>
+                        <p>Contrôle de conformité de l'installation électrique intérieure du T2.</p>
+                    </div>
+                    <a href="docs/diagnostic-electrique.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-mandatory">Obligatoire</span>
+                        <h4>Constat de Risque d'Exposition au Plomb (CREP)</h4>
+                        <p>Diagnostic plomb certifiant l'absence de risque dans les revêtements.</p>
+                    </div>
+                    <a href="docs/diagnostic-plomb.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-mandatory">Obligatoire</span>
+                        <h4>Diagnostic Amiante (Parties Privatives - DAPP)</h4>
+                        <p>Fiche d'évaluation de la présence d'amiante dans le logement et les parties communes.</p>
+                    </div>
+                    <a href="docs/diagnostic-amiante.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Règlements & Annexes Copropriété -->
+        <div class="card doc-category">
+            <h2>3. Annexes de Copropriété & Immeuble</h2>
+            <div class="doc-grid">
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-mandatory">Obligatoire</span>
+                        <h4>Extrait du Règlement de Copropriété</h4>
+                        <p>Règles de vie de l'immeuble, usage des parties communes, locaux poubelles et tranquillité.</p>
+                    </div>
+                    <a href="docs/reglement-copropriete.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-optional">Utile</span>
+                        <h4>Fiche Réseau Fibre Optique & Télécoms</h4>
+                        <p>Informations sur le boîtier PTO et les opérateurs raccordés dans l'immeuble.</p>
+                    </div>
+                    <a href="docs/info-fibre-pto.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-optional">Utile</span>
+                        <h4>Notice Ballon d'Eau Chaude Cotherm</h4>
+                        <p>Mode d'emploi et consignes d'entretien du chauffe-eau Cotherm BBSC0108.</p>
+                    </div>
+                    <a href="docs/notice-cotherm-bbsc0108.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Gestion Courante & Modèles -->
+        <div class="card doc-category">
+            <h2>4. Modèles de Gestion Locative Courante</h2>
+            <div class="doc-grid">
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-optional">Modèle</span>
+                        <h4>Reçu de Dépôt de Garantie</h4>
+                        <p>Attestation de remise du dépôt de garantie de 1 020 € à la signature du bail.</p>
+                    </div>
+                    <a href="docs/modele-recu-depot-garantie.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-optional">Modèle</span>
+                        <h4>Trame de Quittance de Loyer</h4>
+                        <p>Modèle type de quittance mensuelle (510 € loyer + 50 € provisions pour charges).</p>
+                    </div>
+                    <a href="docs/modele-quittance-loyer.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-optional">Modèle</span>
+                        <h4>Décompte Annuel de Régularisation des Charges</h4>
+                        <p>Formulaire pour la régularisation annuelle des provisions pour charges et TEOM.</p>
+                    </div>
+                    <a href="docs/modele-regularisation-charges.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-optional">Modèle</span>
+                        <h4>Attestation d'Assurance Habitation (Rappel)</h4>
+                        <p>Courrier type de relance annuelle pour la fourniture de l'attestation multirisque habitation.</p>
+                    </div>
+                    <a href="docs/demande-attestation-assurance.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
         function checkPassword() {
             const input = document.getElementById('password').value;
-            // Remplacez '1234' par le mot de passe de votre choix
+            // Mot de passe d'accès bailleur (par défaut '1234')
             if (input === '1234') {
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('protected-content').classList.remove('hidden');
@@ -98,6 +360,12 @@
                 document.getElementById('error-msg').style.display = 'block';
             }
         }
+
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
     </script>
 </body>
 </html>
