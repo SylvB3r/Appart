@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accès Sécurisé</title>
+    <title>Accès Sécurisé - Gestion Locative</title>
     <style>
-        body { font-family: sans-serif; background: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; max-width: 350px; width: 100%; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; max-width: 380px; width: 100%; }
         input, button { width: 100%; padding: 10px; margin-top: 10px; box-sizing: border-box; }
         button { background: #27ae60; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .error { color: red; font-size: 0.85rem; display: none; margin-top: 10px; }
+        .error { color: #dc2626; font-size: 0.85rem; display: none; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h2>Accès Sécurisé</h2>
-        <p>Entrez le mot de passe bailleur :</p>
+        <h2>Espace Privé</h2>
+        <p>Veuillez saisir votre mot de passe d'accès :</p>
         <input type="password" id="password" placeholder="Mot de passe">
         <button onclick="login()">Se connecter</button>
         <p id="error-msg" class="error">Mot de passe incorrect.</p>
     </div>
 
     <script>
-        const HASH_CORRECT = "b40d39366dfdfc29ba1c5db6175e47c050a41d7cb3d0b27464faaaebccab8191";
+        // Mot de passe fort recommandé (ex: "Rivoli49000!")
+        // Pour générer un nouveau hash SHA-256 sécurisé : console.log(await hashPassword("VOTRE_NOUVEAU_MDP"))
+        const HASH_ADMIN = "852dc8b9ff692a7e7164ff03ebcfecb3133379963c46e3ddc6bcae8d386d4eb5"; // Empreinte Admin[cite: 12]
+        const HASH_EDL = "b40d39366dfdfc29ba1c5db6175e47c050a41d7cb3d0b27464faaaebccab8191";   // Empreinte EDL
 
         async function hashPassword(pwd) {
             const encoder = new TextEncoder();
@@ -33,13 +36,21 @@
         }
 
         async function login() {
-            const input = document.getElementById('password').value;
+            const input = document.getElementById('password').value.trim();
             const inputHash = await hashPassword(input);
+            const urlParams = new URLSearchParams(window.location.search);
+            const target = urlParams.get('target');
 
-            if (inputHash === HASH_CORRECT) {
-                sessionStorage.setItem('authenticated', 'true');
-                const redirect = new URLSearchParams(window.location.search).get('redirect') || 'admin.html';
-                window.location.href = redirect;
+            if (inputHash === HASH_ADMIN || inputHash === HASH_EDL) {
+                // Stockage du jeton de session dans le navigateur
+                sessionStorage.setItem('auth_token', inputHash);
+                sessionStorage.setItem('auth_time', Date.now());
+
+                if (target === 'edl') {
+                    window.location.href = 'etat-des-lieux.html';
+                } else {
+                    window.location.href = 'admin.html';
+                }
             } else {
                 document.getElementById('error-msg').style.display = 'block';
             }
