@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>État des Lieux Contradictoire - Angers (Rue de Rivoli)</title>
+    <title>État des Lieux Contradictoire - Angers</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -68,24 +68,12 @@
             display: inline-block;
         }
 
-        .btn:hover {
-            opacity: 0.9;
-        }
+        .btn:hover { opacity: 0.9; }
+        .btn-back { background-color: var(--primary-color); }
+        .btn-print { background-color: #0284c7; }
 
-        .btn-back {
-            background-color: var(--primary-color);
-        }
-
-        h1, h2, h3 {
-            color: var(--primary-color);
-        }
-
-        h2 {
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-
+        h1, h2, h3 { color: var(--primary-color); }
+        h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
         h3 {
             font-size: 1.1rem;
             background-color: #f1f5f9;
@@ -105,9 +93,7 @@
             margin-bottom: 20px;
         }
 
-        .table-responsive {
-            overflow-x: auto;
-        }
+        .table-responsive { overflow-x: auto; }
 
         table {
             width: 100%;
@@ -123,19 +109,9 @@
             text-align: left;
         }
 
-        th {
-            background-color: var(--primary-color);
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
-
-        .td-center {
-            text-align: center;
-        }
+        th { background-color: var(--primary-color); color: #ffffff; font-weight: 600; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        .td-center { text-align: center; }
 
         .badge {
             display: inline-block;
@@ -147,7 +123,6 @@
 
         .badge-tb { background-color: #dcfce7; color: #15803d; }
         .badge-b { background-color: #e0f2fe; color: #0369a1; }
-        .badge-u { background-color: #fef9c3; color: #a16207; }
 
         .signature-grid {
             display: grid;
@@ -160,18 +135,19 @@
             border: 1px dashed var(--border-color);
             padding: 15px;
             border-radius: 6px;
-            min-height: 80px;
+            min-height: 100px;
             background-color: #f8fafc;
         }
 
-        .hidden {
-            display: none;
-        }
+        .hidden { display: none; }
 
-        @media (max-width: 600px) {
-            .signature-grid {
-                grid-template-columns: 1fr;
-            }
+        /* Optimisation pour l'impression / sauvegarde PDF */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            .no-print, #login-screen { display: none !important; }
+            #protected-content { display: block !important; }
+            .card { box-shadow: none; border: 1px solid #ccc; margin-bottom: 15px; page-break-inside: avoid; }
+            input[type="text"] { border: none; background: transparent; font-weight: bold; padding: 0; }
         }
     </style>
 </head>
@@ -189,10 +165,12 @@
 
     <!-- Contenu protégé -->
     <div id="protected-content" class="container hidden">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-            <h1 style="margin: 0;">État des Lieux Contradictoire & Inventaire</h1>
+        <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
             <a href="index.html" class="btn btn-back">← Retour à l'annonce</a>
+            <button onclick="window.print()" class="btn btn-print">📄 Imprimer / Enregistrer en PDF</button>
         </div>
+
+        <h1 style="margin-bottom: 20px;">État des Lieux Contradictoire & Inventaire</h1>
 
         <!-- Synthèse Informations -->
         <div class="card">
@@ -200,55 +178,54 @@
             <div class="info-grid">
                 <div><strong>Type d'état des lieux :</strong> Entrée</div>
                 <div><strong>Date de réalisation :</strong> 31 août 2026</div>
-                <div><strong>Adresse du bien :</strong> 6 rue Rivoli, Appt 203, 49000 ANGERS (32,9 m²)</div>
+                <div><strong>Adresse du bien :</strong> 6 rue de Rivoli, Appt 203, 49000 ANGERS (32,9 m²)</div>
                 <div><strong>Bailleurs :</strong> Mme Maguy BERNARD & M. Sylvain BERNARD</div>
                 <div><strong>Locataire :</strong> M. Louis DEFRENNE</div>
                 <div><strong>Garant Solidaire :</strong> Mme Hortense DUBREUIL</div>
             </div>
         </div>
 
-<!-- Relevé des Compteurs & Clés -->
-<div class="card">
-    <h2>1. Relevé des Compteurs & Clés</h2>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th>Élément / Compteur</th>
-                    <th>Identifiant / Quantité</th>
-                    <th>Index & Détails</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Électricité (Compteur Linky)</strong></td>
-                    <td>PDL N° <strong>09329088212454</strong><br><small>Puissance : 3 kVA</small></td>
-                    <td>Index kWh : <input type="text" placeholder="Index au 31/08" style="width: 130px;"><br><small>Ancien titulaire : BERNARD SYLVAIN</small></td>
-                </tr>
-                <tr>
-                    <td><strong>Eau froide (Compteur individuel)</strong></td>
-                    <td>Compteur privatif</td>
-                    <td>Index m³ : <input type="text" placeholder="Index au 31/08" style="width: 130px;"></td>
-                </tr>
-                <tr>
-                    <td><strong>Clés & Accès immeuble</strong></td>
-                    <td>
-                        • 1 jeu de clés appartement<br>
-                        • Code d'accès entrée immeuble<br>
-                        • 1 clé local poubelles
-                    </td>
-                    <td><span class="badge badge-tb">Très Bon État</span> - Clés physiques remises, code transmis</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+        <!-- Relevé des Compteurs & Clés -->
+        <div class="card">
+            <h2>1. Relevé des Compteurs & Clés</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Élément / Compteur</th>
+                            <th>Identifiant / Quantité</th>
+                            <th>Index & Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Électricité (Compteur Linky)</strong></td>
+                            <td>PDL N° <strong>09329088212454</strong><br><small>Puissance : 3 kVA</small></td>
+                            <td>Index kWh : <input type="text" id="index-elec" placeholder="Ex: 12345" style="width: 140px;"><br><small>Ancien titulaire : BERNARD SYLVAIN</small></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Eau froide (Compteur individuel)</strong></td>
+                            <td>Compteur privatif</td>
+                            <td>Index m³ : <input type="text" id="index-eau" placeholder="Ex: 124" style="width: 140px;"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Clés & Accès immeuble</strong></td>
+                            <td>
+                                • 1 jeu de clés appartement<br>
+                                • Code d'accès entrée immeuble<br>
+                                • 1 clé local poubelles
+                            </td>
+                            <td><span class="badge badge-tb">Très Bon État</span> - Clés physiques remises, code transmis</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-        <!-- Inventaire Détaillé & État Actuel -->
+        <!-- Inventaire Détaillé -->
         <div class="card">
             <h2>2. Inventaire Exhaustif du Logement & Mobilier</h2>
 
-            <!-- Entrée -->
             <h3>A. Entrée & Dégagement</h3>
             <div class="table-responsive">
                 <table>
@@ -272,7 +249,6 @@
                 </table>
             </div>
 
-            <!-- Pièce de Vie / Séjour -->
             <h3>B. Pièce Principale / Séjour</h3>
             <div class="table-responsive">
                 <table>
@@ -287,20 +263,19 @@
                     <tbody>
                         <tr><td>Sols / Plinthes</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Sol vinyle correct</td></tr>
                         <tr><td>Murs & Peintures</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Peintures gris/vert et blanches neuves</td></tr>
-                        <tr><td>Fenêtres / Baies vitrées & Volets</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Double vitrage, volet roulant</td></tr>
+                        <tr><td>Fenêtres & Volets</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Double vitrage, volet roulant</td></tr>
                         <tr><td>Radiateur électrique (Inertie)</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Propre, thermostat testé</td></tr>
-                        <tr><td>Prises électriques & Prise RJ45 (Fibre)</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Prises fixes, boîtier PTO fibre installé</td></tr>
-                        <tr><td>Canapé convertible (Clic-clac / Rapido)</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Assise et matelas impeccables, mécanisme fluide</td></tr>
+                        <tr><td>Prises électriques & Prise RJ45</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Prises fixes, boîtier PTO fibre installé</td></tr>
+                        <tr><td>Canapé convertible</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Assise et matelas impeccables, mécanisme fluide</td></tr>
                         <tr><td>Table basse</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Sans rayure ni éclat</td></tr>
                         <tr><td>Bureau & Chaise de bureau</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Mobilier solide, propre</td></tr>
                         <tr><td>Table à manger & Chaises</td><td class="td-center">1+3</td><td><span class="badge badge-tb">Neuf</span></td><td>Table fixe et 3 chaises stables et propres</td></tr>
-                        <tr><td>Meuble de rangement / Étagères</td><td class="td-center">1</td><td><span class="badge badge-b">Neuf</span></td><td>Structure stable, légères traces d'usage normales</td></tr>
+                        <tr><td>Meuble de rangement / Étagères</td><td class="td-center">1</td><td><span class="badge badge-b">Neuf</span></td><td>Structure stable</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Espace Cuisine -->
-            <h3>C. Espace Cuisine (Ouverte)</h3>
+            <h3>C. Espace Cuisine</h3>
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -313,21 +288,20 @@
                     </thead>
                     <tbody>
                         <tr><td>Sols & Credence</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Carrelage / Credence propre et dégraissée</td></tr>
-                        <tr><td>Meubles hauts & bas de cuisine</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Portes, charnières et étagères propres et ajustées</td></tr>
-                        <tr><td>Plan de travail</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Sans brûlure ni fissure, joints en silicone propres</td></tr>
-                        <tr><td>Évier, Egouttoir & Mitigeur</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Inox détartré, aucune fuite sous évier</td></tr>
-                        <tr><td>Chauffe-eau électrique (Ballon)</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Modèle : Cotherm BBSC0108. Étanchéité et chauffe vérifiées, pas de fuite au groupe de sécurité</td></tr>
-                        <tr><td>Plaques vitrocéramiques (2 feux)</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Surface vitrée propre, feux testés fonctionnels</td></tr>
-                        <tr><td>Hotte aspirante & Filtre</td><td class="td-center">1</td><td><span class="badge badge-b">Bon État</span></td><td>Éclairage et aspiration testés, filtre propre</td></tr>
-                        <tr><td>Réfrigérateur avec freezer</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Propre, nettoyé, dégivré, balconnets intacts</td></tr>
-                        <tr><td>Four micro-ondes</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Plateau tournant en verre présent, intérieur nickel</td></tr>
-                        <tr><td>Lave-linge (Top ou Hublot)</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Bac à lessive et joint de porte propres, fonctionnel</td></tr>
-                         <tr><td>Poubelle de cuisine & Matériel ménage</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Poubelle propre, balai, serpillière et seau fournis</td></tr>
+                        <tr><td>Meubles hauts & bas</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Portes et étagères propres</td></tr>
+                        <tr><td>Plan de travail</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Sans brûlure ni fissure</td></tr>
+                        <tr><td>Évier & Mitigeur</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Inox détartré, aucune fuite</td></tr>
+                        <tr><td>Chauffe-eau électrique (Ballon)</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Cotherm BBSC0108 - Pas de fuite</td></tr>
+                        <tr><td>Plaques vitrocéramiques (2 feux)</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Surface propre, feux fonctionnels</td></tr>
+                        <tr><td>Hotte aspirante</td><td class="td-center">1</td><td><span class="badge badge-b">Bon État</span></td><td>Éclairage et aspiration testés</td></tr>
+                        <tr><td>Réfrigérateur avec freezer</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Propre, dégivré</td></tr>
+                        <tr><td>Four micro-ondes</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Plateau présent, propre</td></tr>
+                        <tr><td>Lave-linge</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Bac et joint propres, fonctionnel</td></tr>
+                        <tr><td>Poubelle & Matériel ménage</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Poubelle, balai, serpillière et seau fournis</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Chambre -->
             <h3>D. Chambre</h3>
             <div class="table-responsive">
                 <table>
@@ -341,19 +315,18 @@
                     </thead>
                     <tbody>
                         <tr><td>Sols / Plinthes</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Parquet stratifié propre</td></tr>
-                        <tr><td>Murs & Peintures</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Peintures fraîches sans trace</td></tr>
-                        <tr><td>Fenêtre & Store / Rideau</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Ouverture facile, occultation fonctionnelle</td></tr>
-                        <tr><td>Radiateur électrique</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Chauffe correctement, propre</td></tr>
-                        <tr><td>Lit double (140x190) & Cadre de lit</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Structure solide et stable</td></tr>
-                        <tr><td>Sommier à lattes</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Toutes les lattes intactes</td></tr>
-                        <tr><td>Matelas (140x190) & Alèse</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Propre, aucune tache, protégé par une alèse neuve</td></tr>
-                        <tr><td>Commode 3 tiroirs</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuft</span></td><td>Tiroirs coulissent parfaitement</td></tr>
-                        <tr><td>Table de chevet & Lampe</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuft</span></td><td>Lampe de chevet fonctionnelle avec ampoule</td></tr>
+                        <tr><td>Murs & Peintures</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Peintures fraîches</td></tr>
+                        <tr><td>Fenêtre & Store / Rideau</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Ouverture facile</td></tr>
+                        <tr><td>Radiateur électrique</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Chauffe correctement</td></tr>
+                        <tr><td>Lit double (140x190) & Cadre</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Structure solide et stable</td></tr>
+                        <tr><td>Sommier à lattes</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Lattes intactes</td></tr>
+                        <tr><td>Matelas (140x190) & Alèse</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Propre, avec alèse neuve</td></tr>
+                        <tr><td>Commode 3 tiroirs</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Tiroirs coulissent parfaitement</td></tr>
+                        <tr><td>Table & Lampe de chevet</td><td class="td-center">1</td><td><span class="badge badge-tb">Neuf</span></td><td>Lampe fonctionnelle avec ampoule</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Salle de Bain & WC -->
             <h3>E. Salle de Bain & WC</h3>
             <div class="table-responsive">
                 <table>
@@ -366,14 +339,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Porte & Verrou de sécurité</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Fermeture et verrouillage fonctionnels</td></tr>
-                        <tr><td>Sols & Faïence murale</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Carrelage propre, joints sani-itaires blancs et étanches</td></tr>
-                        <tr><td>Baignoire & Pare-douche / Rideau</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Émail intact, pare-douche/rideau propre</td></tr>
-                        <tr><td>Robinetterie / Flexible / Douchette</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Flexible et douchette testés, pas de fuite</td></tr>
-                        <tr><td>Meuble vasque, Lavabo & Miroir</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Rangement sous vasque propre, miroir sans ébréchure</td></tr>
-                        <tr><td>Cuvette WC, Abattant & Chasse d'eau</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Détartré, mécanisme de chasse testé sans fuite continue</td></tr>
-                        <tr><td>Porte-serviettes & Accessoires WC</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Brosse WC neuve</td></tr>
-                        <tr><td>Bouche d'extraction VMC</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Dépoussiérée, aspiration continue constatée</td></tr>
+                        <tr><td>Porte & Verrou</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Fermeture et verrouillage fonctionnels</td></tr>
+                        <tr><td>Sols & Faïence murale</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Carrelage propre, joints étanches</td></tr>
+                        <tr><td>Baignoire & Pare-douche</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Émail intact, pare-douche propre</td></tr>
+                        <tr><td>Robinetterie / Douchette</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Testés, aucune fuite</td></tr>
+                        <tr><td>Meuble vasque, Lavabo & Miroir</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Rangement propre, miroir intact</td></tr>
+                        <tr><td>Cuvette WC & Chasse d'eau</td><td class="td-center">1</td><td><span class="badge badge-tb">Bon État</span></td><td>Détartré, pas de fuite</td></tr>
+                        <tr><td>Porte-serviettes & Accessoires</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Brosse WC neuve</td></tr>
+                        <tr><td>VMC</td><td class="td-center">1</td><td><span class="badge badge-tb">Très Bon État</span></td><td>Aspiration continue constatée</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -401,21 +374,42 @@
     </div>
 
     <script>
+        // Gestion de l'accès sécurisé
         function checkPassword() {
             const input = document.getElementById('password').value;
             if (input === '1234') {
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('protected-content').classList.remove('hidden');
+                loadSavedIndexes();
             } else {
                 document.getElementById('error-msg').style.display = 'block';
             }
         }
 
         document.getElementById('password').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkPassword();
-            }
+            if (e.key === 'Enter') checkPassword();
         });
+
+        // Auto-sauvegarde des index saisie dans le navigateur (localStorage)
+        const elecInput = document.getElementById('index-elec');
+        const eauInput = document.getElementById('index-eau');
+
+        elecInput.addEventListener('input', () => {
+            localStorage.setItem('edl_index_elec', elecInput.value);
+        });
+
+        eauInput.addEventListener('input', () => {
+            localStorage.setItem('edl_index_eau', eauInput.value);
+        });
+
+        function loadSavedIndexes() {
+            if (localStorage.getItem('edl_index_elec')) {
+                elecInput.value = localStorage.getItem('edl_index_elec');
+            }
+            if (localStorage.getItem('edl_index_eau')) {
+                eauInput.value = localStorage.getItem('edl_index_eau');
+            }
+        }
     </script>
 </body>
 </html>
