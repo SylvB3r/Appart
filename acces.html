@@ -24,7 +24,7 @@
             // Mots de passe acceptés (insensible à la casse)
             const mdpSaisi = input.toUpperCase();
 
-            if (mdpSaisi === "A5179B" || mdpSaisi === "A7951B" || input === "code entrée") {
+            if (mdpSaisi === "A5179B" || mdpSaisi === "A7951B") {
                 // Création du jeton de session pour débloquer admin.html et etat-des-lieux.html
                 sessionStorage.setItem('auth_token', "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca");
                 sessionStorage.setItem('auth_time', Date.now());
