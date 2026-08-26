@@ -403,30 +403,27 @@
     </div>
 
 <script>
-    // 1. Contrôle d'accès automatique via la session acces.html
     (function verifyAccess() {
         const token = sessionStorage.getItem('auth_token');
         const authTime = sessionStorage.getItem('auth_time');
-        const MAX_SESSION_DURATION = 2 * 60 * 60 * 1000; // 2 heures
+        const MAX_SESSION_DURATION = 2 * 60 * 60 * 1000;
 
-        // Le hash exact pour A5179B
         const VALID_HASHES = [
             "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca"
         ];
 
         if (!token || !VALID_HASHES.includes(token) || (Date.now() - Number(authTime) > MAX_SESSION_DURATION)) {
             sessionStorage.clear();
-            window.location.href = 'acces.html';
+            window.location.href = 'acces.html?redirect=etat-des-lieux.html';
         } else {
             document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById('login-screen')?.classList.add('hidden');
                 document.getElementById('protected-content')?.classList.remove('hidden');
-                loadSavedData(); // Recharge les index sauvegardés
+                loadSavedData();
             });
         }
     })();
 
-    // 2. Gestion des badges de couleur
     function updateBadgeStyle(selectElement) {
         selectElement.className = 'badge-select';
         const val = selectElement.value;
@@ -436,7 +433,6 @@
         else selectElement.classList.add('badge-autre');
     }
 
-    // 3. Auto-sauvegarde des index et commentaires (localStorage)
     const elecInput = document.getElementById('index-elec');
     const eauInput = document.getElementById('index-eau');
     const commentInputs = document.querySelectorAll('.comment-input');
