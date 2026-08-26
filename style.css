@@ -409,3 +409,45 @@ tr:nth-child(even) { background-color: #f8fafc; }
     .lightbox-prev { left: 10px; }
     .lightbox-next { right: 10px; }
 }
+
+/* Barre de navigation globale */
+.navbar {
+    background-color: #1e293b;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.nav-btn {
+    color: #f8fafc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-btn:hover {
+    background-color: #334155;
+    color: #38bdf8;
+}
+
+.nav-btn.active {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Masquer la barre à l'impression */
+@media print {
+    .navbar { display: none !important; }
+}
