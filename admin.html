@@ -6,30 +6,88 @@
     <title>Espace Administrateur - Gestion Locative - Rue de Rivoli</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Style pour les sections dépliables */
+        /* Structure en grille carrée pour afficher plusieurs documents par ligne */
+        .doc-grid-square {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .doc-card-square {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            aspect-ratio: 1 / 1; /* Force le format carré */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+        }
+
+        .doc-card-square:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .doc-card-square h4 {
+            margin: 8px 0 5px 0;
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            line-height: 1.2;
+        }
+
+        .doc-card-square p {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin: 0;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Style spécifique pour les volets dépliables dans les cases */
         details {
             background-color: #f8fafc;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 10px 15px;
-            margin-top: 10px;
+            padding: 6px 10px;
+            margin-top: auto;
             cursor: pointer;
+            font-size: 0.8rem;
         }
+
         summary {
             font-weight: bold;
             color: var(--primary-color);
             outline: none;
+            font-size: 0.78rem;
         }
+
+        details[open] {
+            position: relative;
+            z-index: 10;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
         details[open] summary {
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 5px;
+            padding-bottom: 4px;
         }
+
         details p, details ul {
-            font-size: 0.9rem;
+            font-size: 0.78rem;
             color: #475569;
-            margin: 5px 0;
-            cursor: default;
+            margin: 4px 0;
+            max-height: 150px;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -41,7 +99,7 @@
     <a href="etat-des-lieux.html" class="nav-btn">📋 État des Lieux</a>
 </nav>
 
-    <!-- Écran de connexion (Masqué si session déjà active) -->
+    <!-- Écran de connexion -->
     <div id="login-screen" class="card login-box">
         <h2>Accès Espace Administrateur</h2>
         <p>Entrez le mot de passe bailleur :</p>
@@ -65,194 +123,180 @@
         <!-- 1. Dossier Contractuel -->
         <div class="card doc-category">
             <h2>1. Dossier Contractuel & Bail de Location</h2>
-            <div class="doc-grid">
-                <div class="doc-item">
+            <div class="doc-grid-square">
+                
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-mandatory">Obligatoire</span>
-                        <h4>Contrat de Bail Meublé Type Loi Alur</h4>
-                        <p>Contrat standard conforme pour un logement meublé à titre de résidence principale (1 an).</p>
-                        <details>
-                            <summary>Voir les détails du document</summary>
-                            <p>Ce contrat fixe les conditions de location, le montant du loyer (510 €) et des charges (50 €), la durée du bail (1 an renouvelable), le dépôt de garantie (1 020 €) ainsi que les clauses de résiliation.</p>
-                        </details>
+                        <h4>Contrat de Bail Meublé</h4>
+                        <p>Bail standard conforme Loi Alur (1 an renouvelable).</p>
                     </div>
+                    <details>
+                        <summary>Détails</summary>
+                        <p>Fixe les conditions de location, le loyer (510 €) + charges (50 €), dépôt de garantie (1 020 €) et règles de résiliation.</p>
+                    </details>
                 </div>
 
-                <div class="doc-item">
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-mandatory">Obligatoire</span>
-                        <h4>Notice d'Information Droits & Devoirs</h4>
-                        <p>Document obligatoire à annexer au contrat de bail précisant les droits et obligations des locataires et bailleurs.</p>
-                        <details>
-                            <summary>Voir les détails du document</summary>
-                            <p>Rappelle les règles relatives aux congés, à l'entretien du logement, aux travaux autorisés, au paiement des loyers et aux recours en cas de litige entre locataire et propriétaire.</p>
-                        </details>
+                        <h4>Notice d'Information</h4>
+                        <p>Droits et devoirs des locataires et bailleurs.</p>
                     </div>
+                    <details>
+                        <summary>Détails</summary>
+                        <p>Rappelle les règles relatives aux congés, à l'entretien, aux travaux et au paiement du loyer.</p>
+                    </details>
                 </div>
 
-                <div class="doc-item">
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-mandatory">Obligatoire</span>
-                        <h4>Acte de Cautionnement Solidaire</h4>
-                        <p>Engagement officiel à faire signer par le ou les garants physiques (parents, etc.).</p>
-                        <details>
-                            <summary>Voir les détails du document</summary>
-                            <p>Document légal engageant le garant à régler les loyers, charges et dégradations éventuelles en cas de défaillance du locataire principal.</p>
-                        </details>
+                        <h4>Caution Solidaire</h4>
+                        <p>Engagement légal pour garant physique.</p>
                     </div>
+                    <details>
+                        <summary>Détails</summary>
+                        <p>Engage le garant à régler les loyers et charges en cas de défaillance du locataire.</p>
+                    </details>
                 </div>
 
-                <div class="doc-item">
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-mandatory">Obligatoire</span>
-                        <h4>Inventaire & État des Lieux Entrée</h4>
-                        <p>Lien direct vers la fiche interactive et l'imprimé d'état des lieux contradictoire avec le mobilier.</p>
-                        <details>
-                            <summary>Accès direct</summary>
-                            <p><a href="etat-des-lieux.html" class="btn" style="font-size: 0.85rem; padding: 6px 12px; margin-top: 5px;">Accéder à la page de l'État des Lieux</a></p>
-                        </details>
+                        <h4>État des Lieux</h4>
+                        <p>Inventaire contradictoire du mobilier et de l'état.</p>
                     </div>
+                    <details>
+                        <summary>Accès</summary>
+                        <p><a href="etat-des-lieux.html" class="btn" style="font-size: 0.75rem; padding: 4px 8px; margin-top: 4px;">Accéder à la page</a></p>
+                    </details>
                 </div>
+
             </div>
         </div>
 
         <!-- 2. Équipements & Annexes Techniques -->
         <div class="card doc-category">
             <h2>2. Équipements & Annexes Techniques</h2>
-            <div class="doc-grid">
-                <div class="doc-item">
+            <div class="doc-grid-square">
+
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-mandatory">Obligatoire</span>
-                        <h4>Diagnostic de Performance Énergétique (DPE)</h4>
-                        <p>DPE Classe C du logement, incluant la consommation estimée et les émissions de GES.</p>
-                        <details>
-                            <summary>Voir les détails du document</summary>
-                            <p>Logement classé en **Classe C** pour la consommation énergétique. Valide pour une durée de 10 ans.</p>
-                        </details>
+                        <h4>DPE Logement</h4>
+                        <p>Diagnostic de Performance Énergétique (Classe C).</p>
                     </div>
+                    <details>
+                        <summary>Détails</summary>
+                        <p>Consommation énergétique évaluée en Classe C. Diagnostic valide 10 ans.</p>
+                    </details>
                 </div>
 
-                <div class="doc-item">
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-mandatory">Obligatoire</span>
-                        <h4>Extrait du Règlement de Copropriété</h4>
-                        <p>Règles de vie de l'immeuble, usage des parties communes, locaux poubelles et tranquillité.</p>
-                        <details>
-                            <summary>Voir les détails du document</summary>
-                            <p>Règlement régissant la tranquillité nocturne, l'interdiction de stocker dans les couloirs, les règles d'utilisation de l'ascenseur et le tri des déchets dans le local poubelle.</p>
-                        </details>
+                        <h4>Règlement Copropriété</h4>
+                        <p>Usage des parties communes et règles de vie.</p>
                     </div>
+                    <details>
+                        <summary>Détails</summary>
+                        <p>Tranquillité, tri des déchets dans le local poubelle et utilisation de l'ascenseur.</p>
+                    </details>
                 </div>
 
-                <div class="doc-item">
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-optional">Réseau</span>
-                        <h4>Raccordement Fibre Optique & Télécoms</h4>
-                        <p>Informations d'installation internet pour le logement.</p>
-                        <details>
-                            <summary>Détails et conseils souscription</summary>
-                            <p>Le logement est raccordé à la **Fibre Optique** via un boîtier Prise Terminale Optique (PTO) mural.</p>
-                            <p>💡 <strong>Note importante :</strong> Le numéro d'identifiant PTO n'est pas inscrit physiquement sur le boîtier. Lors de votre souscription auprès de votre opérateur (Orange, Free, SFR, Bouygues), indiquez simplement l'adresse exacte : <em>6 Rue de Rivoli, 49000 Angers, Appt 203, 2ème étage</em>. L'opérateur retrouvera directement la ligne dans sa base de données.</p>
-                        </details>
+                        <h4>Fibre Optique & PTO</h4>
+                        <p>Raccordement internet très haut débit.</p>
                     </div>
+                    <details>
+                        <summary>Détails & Conseils</summary>
+                        <p>Boîtier PTO installé. Aucun identifiant numéro PTO inscrit dessus. Lors de la souscription, communiquez simplement l'adresse exacte (6 Rue de Rivoli, Appt 203, 2ème étage).</p>
+                    </details>
                 </div>
 
-                <div class="doc-item">
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-optional">Équipement</span>
-                        <h4>Chauffe-eau Électrique Cotherm BBSC0108</h4>
-                        <p>Consignes de sécurité et fonctionnement du ballon d'eau chaude.</p>
-                        <details>
-                            <summary>Instructions & Précautions</summary>
-                            <p>Le logement est équipé d'un chauffe-eau électrique Cotherm modèle <strong>BBSC0108</strong>.</p>
-                            <p>⚠️ <strong>Points d'attention particuliers :</strong></p>
-                            <ul>
-                                <li>Ne modifiez pas le réglage du thermostat sans avis préalable.</li>
-                                <li>En cas d'inoccupation prolongée (vacances de plus de 2 semaines), il est recommandé de couper l'alimentation électrique du ballon au disjoncteur.</li>
-                                <li>Actionnez le groupe de sécurité une fois par mois pour éviter l'entartrage.</li>
-                            </ul>
-                        </details>
+                        <h4>Chauffe-eau Cotherm</h4>
+                        <p>Notice et consignes modèle BBSC0108.</p>
                     </div>
+                    <details>
+                        <summary>Instructions</summary>
+                        <p>Ne pas modifier le thermostat. Couper au disjoncteur en cas d'absence > 2 semaines. Actionner le groupe de sécurité une fois par mois.</p>
+                    </details>
                 </div>
 
-                <div class="doc-item">
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-mandatory">Sécurité</span>
-                        <h4>Détecteur Autonome Avertisseur de Fumée (DAAF)</h4>
-                        <p>Attestation et caractéristiques du détecteur de fumée obligatoire.</p>
-                        <details>
-                            <summary>Détails appareil & Information Assurance</summary>
-                            <p>Je te confirme que le détecteur de fumée a bien été installé dans le logement.</p>
-                            <p>Pour information, il s'agit d'un modèle conforme avec pile intégrée (valable jusqu'en 2034). Tu n'as pas à changer la pile, il te suffit simplement de tester son bon fonctionnement une fois par mois en appuyant quelques secondes sur le bouton central.</p>
-                            <p><strong>Informations pour l'Assurance Habitation :</strong></p>
-                            <p>Pour attester de l'installation du détecteur auprès de ton assurance habitation, voici ce qu'il faut transmettre :</p>
-                            <ul>
-                                <li><strong>1. Une attestation sur l'honneur :</strong> Rédigée et signée (souvent téléchargeable sur ton espace client assurance), mentionnant un détecteur conforme à la norme <strong>EN 14604</strong>.</li>
-                                <li><strong>2. Détails de l'appareil :</strong>
-                                    <ul>
-                                        <li>Modèle : <strong>Ei650F</strong> (marqué NF / CE)</li>
-                                        <li>Numéro de série : <strong>23W08-003606</strong></li>
-                                        <li>Date limite de remplacement (validité) : <strong>02-2034</strong> (février 2034)</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </details>
+                        <h4>Détecteur Fumée (DAAF)</h4>
+                        <p>Conformité NF EN 14604 & Assurance.</p>
                     </div>
+                    <details>
+                        <summary>Infos Assurance</summary>
+                        <p>Pile intégrée valable jusqu'en 2034 (aucun changement de pile requis, tester 1x/mois). Modèle Ei650F / N° série : 23W08-003606.</p>
+                    </details>
                 </div>
+
             </div>
         </div>
 
         <!-- 3. Gestion Courante & Modèles -->
         <div class="card doc-category">
             <h2>3. Modèles de Gestion Locative Courante</h2>
-            <div class="doc-grid">
-                <div class="doc-item">
+            <div class="doc-grid-square">
+
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-optional">Modèle</span>
-                        <h4>Reçu de Dépôt de Garantie</h4>
-                        <p>Attestation de remise du dépôt de garantie à la signature du bail.</p>
-                        <details>
-                            <summary>Voir les détails</summary>
-                            <p>Reçu délivré au locataire attestant du versement de la somme de 1 020 € restituée en fin de bail sous déduction des sommes éventuelles dues.</p>
-                        </details>
+                        <h4>Dépôt de Garantie</h4>
+                        <p>Reçu d'encaissement de la caution (1 020 €).</p>
                     </div>
+                    <details>
+                        <summary>Détails</summary>
+                        <p>Attestation de versement restituée en fin de bail sous déduction des éventuelles dégradations.</p>
+                    </details>
                 </div>
 
-                <div class="doc-item">
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-optional">Modèle</span>
                         <h4>Quittance de Loyer</h4>
-                        <p>Document justificatif de paiement mensuel du loyer et des charges.</p>
-                        <details>
-                            <summary>Voir les détails</summary>
-                            <p>Justificatif délivré sur demande du locataire après paiement intégral de la somme mensuelle de 560 € (510 € loyer + 50 € charges).</p>
-                        </details>
+                        <p>Justificatif de paiement mensuel (560 € CC).</p>
                     </div>
+                    <details>
+                        <summary>Détails</summary>
+                        <p>Attestation de paiement du loyer (510 €) et des provisions sur charges (50 €).</p>
+                    </details>
                 </div>
 
-                <div class="doc-item">
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-optional">Modèle</span>
-                        <h4>Régularisation Annuelle des Charges</h4>
-                        <p>Décompte annuel comparant les provisions versées aux charges réelles de copropriété.</p>
-                        <details>
-                            <summary>Voir les détails</summary>
-                            <p>Calcul annuel basé sur le relevé de charges de copropriété (eau froide, ordures ménagères TEOM, entretien des communs et ascenseur).</p>
-                        </details>
+                        <h4>Régularisation Charges</h4>
+                        <p>Décompte annuel TEOM et charges de copropriété.</p>
                     </div>
+                    <details>
+                        <summary>Détails</summary>
+                        <p>Ajustement annuel basé sur le relevé réel (eau froide, ordures ménagères, communs, ascenseur).</p>
+                    </details>
                 </div>
 
-                <div class="doc-item">
+                <div class="doc-card-square">
                     <div>
                         <span class="badge-optional">Modèle</span>
-                        <h4>Attestation d'Assurance Habitation</h4>
-                        <p>Justificatif obligatoire à fournir chaque année par le locataire.</p>
-                        <details>
-                            <summary>Voir les détails</summary>
-                            <p>Document prouvant que le locataire a souscrit une assurance Multirisque Habitation valide pour couvrir les risques d'incendie, explosion et dégât des eaux.</p>
-                        </details>
+                        <h4>Assurance Habitation</h4>
+                        <p>Rappel annuel de fourniture d'attestation.</p>
                     </div>
+                    <details>
+                        <summary>Détails</summary>
+                        <p>Obligation légale du locataire de fournir chaque année une attestation Multirisque Habitation valide.</p>
+                    </details>
                 </div>
+
             </div>
         </div>
 
@@ -262,18 +306,16 @@
     (function verifyAccess() {
         const token = sessionStorage.getItem('auth_token');
         const authTime = sessionStorage.getItem('auth_time');
-        const MAX_SESSION_DURATION = 2 * 60 * 60 * 1000; // 2 heures
+        const MAX_SESSION_DURATION = 2 * 60 * 60 * 1000;
 
         const VALID_HASHES = [
             "c7e3f899e691ec55239a04a3bb50ec6ad29ec4938ea5f7c32bf8168e36ed42ca"
         ];
 
-        // Vérification du jeton et du délai d'expiration
         if (!token || !VALID_HASHES.includes(token) || (Date.now() - Number(authTime) > MAX_SESSION_DURATION)) {
             sessionStorage.clear();
             window.location.href = 'acces.html?redirect=admin.html';
         } else {
-            // Affichage direct du contenu protégé
             document.getElementById('login-screen')?.classList.add('hidden');
             document.getElementById('protected-content')?.classList.remove('hidden');
         }
