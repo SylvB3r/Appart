@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Espace Administrateur - Gestion Locative - Rue de Rivoli</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Structure en grille carrée pour afficher plusieurs documents par ligne */
+<style>
+        /* Grille responsive adaptable */
         .doc-grid-square {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 15px;
             margin-top: 15px;
         }
@@ -22,14 +22,13 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            aspect-ratio: 1 / 1; /* Force le format carré */
             box-shadow: 0 2px 5px rgba(0,0,0,0.04);
             transition: transform 0.2s, box-shadow 0.2s;
-            overflow: hidden;
+            height: auto; /* Permet à la carte de grandir selon le contenu */
         }
 
         .doc-card-square:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
@@ -41,53 +40,49 @@
         }
 
         .doc-card-square p {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #64748b;
-            margin: 0;
+            margin: 0 0 10px 0;
             line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
 
-        /* Style spécifique pour les volets dépliables dans les cases */
+        /* Volets dépliables complètement visibles */
         details {
             background-color: #f8fafc;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 6px 10px;
-            margin-top: auto;
+            padding: 8px 12px;
+            margin-top: 8px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
         summary {
             font-weight: bold;
             color: var(--primary-color);
             outline: none;
-            font-size: 0.78rem;
-        }
-
-        details[open] {
-            position: relative;
-            z-index: 10;
-            background-color: #ffffff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-size: 0.82rem;
         }
 
         details[open] summary {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             border-bottom: 1px dashed var(--border-color);
             padding-bottom: 4px;
         }
 
         details p, details ul {
-            font-size: 0.78rem;
+            font-size: 0.82rem;
             color: #475569;
-            margin: 4px 0;
-            max-height: 150px;
-            overflow-y: auto;
+            margin: 6px 0;
+            white-space: normal; /* Affiche tout le texte sans couper */
+        }
+
+        details ul {
+            padding-left: 18px;
+        }
+
+        details li {
+            margin-bottom: 4px;
         }
     </style>
 </head>
