@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Espace Administrateur - Gestion Locative - Rue de Rivoli</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Style pour les sections dépliables */
+        details {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 10px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        summary {
+            font-weight: bold;
+            color: var(--primary-color);
+            outline: none;
+        }
+        details[open] summary {
+            margin-bottom: 10px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+        }
+        details p, details ul {
+            font-size: 0.9rem;
+            color: #475569;
+            margin: 5px 0;
+            cursor: default;
+        }
+    </style>
 </head>
 <body>
 
@@ -32,7 +59,7 @@
         </div>
 
         <div class="info-box">
-            📌 <strong>Centre de ressources bailleur :</strong> Retrouvez ici tous les documents obligatoires requis par la loi Alur pour la mise en location du T2 (33 m² - Angers), ainsi que les modèles de gestion courante.
+            📌 <strong>Centre de ressources bailleur :</strong> Retrouvez ici tous les détails des documents obligatoires requis par la loi Alur pour la mise en location du T2 (33 m² - Angers), ainsi que les guides d'équipements de l'appartement.
         </div>
 
         <!-- 1. Dossier Contractuel -->
@@ -44,8 +71,11 @@
                         <span class="badge-mandatory">Obligatoire</span>
                         <h4>Contrat de Bail Meublé Type Loi Alur</h4>
                         <p>Contrat standard conforme pour un logement meublé à titre de résidence principale (1 an).</p>
+                        <details>
+                            <summary>Voir les détails du document</summary>
+                            <p>Ce contrat fixe les conditions de location, le montant du loyer (510 €) et des charges (50 €), la durée du bail (1 an renouvelable), le dépôt de garantie (1 020 €) ainsi que les clauses de résiliation.</p>
+                        </details>
                     </div>
-                    <a href="docs/contrat-de-bail-meuble.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
                 </div>
 
                 <div class="doc-item">
@@ -53,8 +83,11 @@
                         <span class="badge-mandatory">Obligatoire</span>
                         <h4>Notice d'Information Droits & Devoirs</h4>
                         <p>Document obligatoire à annexer au contrat de bail précisant les droits et obligations des locataires et bailleurs.</p>
+                        <details>
+                            <summary>Voir les détails du document</summary>
+                            <p>Rappelle les règles relatives aux congés, à l'entretien du logement, aux travaux autorisés, au paiement des loyers et aux recours en cas de litige entre locataire et propriétaire.</p>
+                        </details>
                     </div>
-                    <a href="docs/notice-information-location.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
                 </div>
 
                 <div class="doc-item">
@@ -62,8 +95,11 @@
                         <span class="badge-mandatory">Obligatoire</span>
                         <h4>Acte de Cautionnement Solidaire</h4>
                         <p>Engagement officiel à faire signer par le ou les garants physiques (parents, etc.).</p>
+                        <details>
+                            <summary>Voir les détails du document</summary>
+                            <p>Document légal engageant le garant à régler les loyers, charges et dégradations éventuelles en cas de défaillance du locataire principal.</p>
+                        </details>
                     </div>
-                    <a href="docs/acte-de-caution-solidaire.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
                 </div>
 
                 <div class="doc-item">
@@ -71,23 +107,29 @@
                         <span class="badge-mandatory">Obligatoire</span>
                         <h4>Inventaire & État des Lieux Entrée</h4>
                         <p>Lien direct vers la fiche interactive et l'imprimé d'état des lieux contradictoire avec le mobilier.</p>
+                        <details>
+                            <summary>Accès direct</summary>
+                            <p><a href="etat-des-lieux.html" class="btn" style="font-size: 0.85rem; padding: 6px 12px; margin-top: 5px;">Accéder à la page de l'État des Lieux</a></p>
+                        </details>
                     </div>
-                    <a href="etat-des-lieux.html" class="btn" style="font-size: 0.85rem; padding: 6px 12px;">Accéder à la page</a>
                 </div>
             </div>
         </div>
 
-        <!-- 2. Règlements & Annexes Copropriété -->
+        <!-- 2. Équipements & Annexes Techniques -->
         <div class="card doc-category">
-            <h2>2. Annexes de Copropriété & Immeuble</h2>
+            <h2>2. Équipements & Annexes Techniques</h2>
             <div class="doc-grid">
                 <div class="doc-item">
                     <div>
                         <span class="badge-mandatory">Obligatoire</span>
                         <h4>Diagnostic de Performance Énergétique (DPE)</h4>
                         <p>DPE Classe C du logement, incluant la consommation estimée et les émissions de GES.</p>
+                        <details>
+                            <summary>Voir les détails du document</summary>
+                            <p>Logement classé en **Classe C** pour la consommation énergétique. Valide pour une durée de 10 ans.</p>
+                        </details>
                     </div>
-                    <a href="docs/dpe-appartement.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
                 </div>
 
                 <div class="doc-item">
@@ -95,26 +137,67 @@
                         <span class="badge-mandatory">Obligatoire</span>
                         <h4>Extrait du Règlement de Copropriété</h4>
                         <p>Règles de vie de l'immeuble, usage des parties communes, locaux poubelles et tranquillité.</p>
+                        <details>
+                            <summary>Voir les détails du document</summary>
+                            <p>Règlement régissant la tranquillité nocturne, l'interdiction de stocker dans les couloirs, les règles d'utilisation de l'ascenseur et le tri des déchets dans le local poubelle.</p>
+                        </details>
                     </div>
-                    <a href="docs/reglement-copropriete.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
                 </div>
 
                 <div class="doc-item">
                     <div>
-                        <span class="badge-optional">Utile</span>
-                        <h4>Fiche Réseau Fibre Optique & Télécoms</h4>
-                        <p>Informations sur le boîtier PTO et les opérateurs raccordés dans l'immeuble.</p>
+                        <span class="badge-optional">Réseau</span>
+                        <h4>Raccordement Fibre Optique & Télécoms</h4>
+                        <p>Informations d'installation internet pour le logement.</p>
+                        <details>
+                            <summary>Détails et conseils souscription</summary>
+                            <p>Le logement est raccordé à la **Fibre Optique** via un boîtier Prise Terminale Optique (PTO) mural.</p>
+                            <p>💡 <strong>Note importante :</strong> Le numéro d'identifiant PTO n'est pas inscrit physiquement sur le boîtier. Lors de votre souscription auprès de votre opérateur (Orange, Free, SFR, Bouygues), indiquez simplement l'adresse exacte : <em>6 Rue de Rivoli, 49000 Angers, Appt 203, 2ème étage</em>. L'opérateur retrouvera directement la ligne dans sa base de données.</p>
+                        </details>
                     </div>
-                    <a href="docs/info-fibre-pto.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
                 </div>
 
                 <div class="doc-item">
                     <div>
-                        <span class="badge-optional">Utile</span>
-                        <h4>Notice Ballon d'Eau Chaude Cotherm</h4>
-                        <p>Mode d'emploi et consignes d'entretien du chauffe-eau Cotherm BBSC0108.</p>
+                        <span class="badge-optional">Équipement</span>
+                        <h4>Chauffe-eau Électrique Cotherm BBSC0108</h4>
+                        <p>Consignes de sécurité et fonctionnement du ballon d'eau chaude.</p>
+                        <details>
+                            <summary>Instructions & Précautions</summary>
+                            <p>Le logement est équipé d'un chauffe-eau électrique Cotherm modèle <strong>BBSC0108</strong>.</p>
+                            <p>⚠️ <strong>Points d'attention particuliers :</strong></p>
+                            <ul>
+                                <li>Ne modifiez pas le réglage du thermostat sans avis préalable.</li>
+                                <li>En cas d'inoccupation prolongée (vacances de plus de 2 semaines), il est recommandé de couper l'alimentation électrique du ballon au disjoncteur.</li>
+                                <li>Actionnez le groupe de sécurité une fois par mois pour éviter l'entartrage.</li>
+                            </ul>
+                        </details>
                     </div>
-                    <a href="docs/notice-cotherm-bbsc0108.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
+                </div>
+
+                <div class="doc-item">
+                    <div>
+                        <span class="badge-mandatory">Sécurité</span>
+                        <h4>Détecteur Autonome Avertisseur de Fumée (DAAF)</h4>
+                        <p>Attestation et caractéristiques du détecteur de fumée obligatoire.</p>
+                        <details>
+                            <summary>Détails appareil & Information Assurance</summary>
+                            <p>Je te confirme que le détecteur de fumée a bien été installé dans le logement.</p>
+                            <p>Pour information, il s'agit d'un modèle conforme avec pile intégrée (valable jusqu'en 2034). Tu n'as pas à changer la pile, il te suffit simplement de tester son bon fonctionnement une fois par mois en appuyant quelques secondes sur le bouton central.</p>
+                            <p><strong>Informations pour l'Assurance Habitation :</strong></p>
+                            <p>Pour attester de l'installation du détecteur auprès de ton assurance habitation, voici ce qu'il faut transmettre :</p>
+                            <ul>
+                                <li><strong>1. Une attestation sur l'honneur :</strong> Rédigée et signée (souvent téléchargeable sur ton espace client assurance), mentionnant un détecteur conforme à la norme <strong>EN 14604</strong>.</li>
+                                <li><strong>2. Détails de l'appareil :</strong>
+                                    <ul>
+                                        <li>Modèle : <strong>Ei650F</strong> (marqué NF / CE)</li>
+                                        <li>Numéro de série : <strong>23W08-003606</strong></li>
+                                        <li>Date limite de remplacement (validité) : <strong>02-2034</strong> (février 2034)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </details>
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,36 +210,48 @@
                     <div>
                         <span class="badge-optional">Modèle</span>
                         <h4>Reçu de Dépôt de Garantie</h4>
-                        <p>Attestation de remise du dépôt de garantie de 1 020 € à la signature du bail.</p>
+                        <p>Attestation de remise du dépôt de garantie à la signature du bail.</p>
+                        <details>
+                            <summary>Voir les détails</summary>
+                            <p>Reçu délivré au locataire attestant du versement de la somme de 1 020 € restituée en fin de bail sous déduction des sommes éventuelles dues.</p>
+                        </details>
                     </div>
-                    <a href="docs/modele-recu-depot-garantie.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
                 </div>
 
                 <div class="doc-item">
                     <div>
                         <span class="badge-optional">Modèle</span>
-                        <h4>Trame de Quittance de Loyer</h4>
-                        <p>Modèle type de quittance mensuelle (510 € loyer + 50 € provisions pour charges).</p>
+                        <h4>Quittance de Loyer</h4>
+                        <p>Document justificatif de paiement mensuel du loyer et des charges.</p>
+                        <details>
+                            <summary>Voir les détails</summary>
+                            <p>Justificatif délivré sur demande du locataire après paiement intégral de la somme mensuelle de 560 € (510 € loyer + 50 € charges).</p>
+                        </details>
                     </div>
-                    <a href="docs/modele-quittance-loyer.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
                 </div>
 
                 <div class="doc-item">
                     <div>
                         <span class="badge-optional">Modèle</span>
-                        <h4>Décompte Annuel de Régularisation des Charges</h4>
-                        <p>Formulaire pour la régularisation annuelle des provisions pour charges et TEOM.</p>
+                        <h4>Régularisation Annuelle des Charges</h4>
+                        <p>Décompte annuel comparant les provisions versées aux charges réelles de copropriété.</p>
+                        <details>
+                            <summary>Voir les détails</summary>
+                            <p>Calcul annuel basé sur le relevé de charges de copropriété (eau froide, ordures ménagères TEOM, entretien des communs et ascenseur).</p>
+                        </details>
                     </div>
-                    <a href="docs/modele-regularisation-charges.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
                 </div>
 
                 <div class="doc-item">
                     <div>
                         <span class="badge-optional">Modèle</span>
-                        <h4>Attestation d'Assurance Habitation (Rappel)</h4>
-                        <p>Courrier type de relance annuelle pour la fourniture de l'attestation multirisque habitation.</p>
+                        <h4>Attestation d'Assurance Habitation</h4>
+                        <p>Justificatif obligatoire à fournir chaque année par le locataire.</p>
+                        <details>
+                            <summary>Voir les détails</summary>
+                            <p>Document prouvant que le locataire a souscrit une assurance Multirisque Habitation valide pour couvrir les risques d'incendie, explosion et dégât des eaux.</p>
+                        </details>
                     </div>
-                    <a href="docs/demande-attestation-assurance.pdf" class="btn btn-download" download>Télécharger (PDF)</a>
                 </div>
             </div>
         </div>
